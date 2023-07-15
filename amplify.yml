@@ -8,7 +8,7 @@ frontend:
       commands:
         - npx pnpm@7.5.1 run build
   artifacts:
-    baseDirectory: dist
+    baseDirectory: dist/check-in-face-frontend
     files:
       - '**/*'
   cache:
