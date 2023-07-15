@@ -3,10 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npx pnpm install
+        - npx pnpm@7.5.1 install
     build:
       commands:
-        - npx pnpm run build
+        - npx pnpm@7.5.1 run build
   artifacts:
     baseDirectory: build
     files:
