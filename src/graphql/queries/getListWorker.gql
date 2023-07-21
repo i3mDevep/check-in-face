@@ -1,0 +1,9 @@
+query GetListWorker {
+  getListWorker {
+    fullName
+    identification
+    created
+    modified
+    entity
+  }
+}

@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
+import graphqlLoader from "vite-plugin-graphql-loader";
 
 export default defineConfig({
   cacheDir: './node_modules/.vite/check-in-face-frontend',
@@ -17,7 +17,7 @@ export default defineConfig({
   },
 
   plugins: [
-    react(),
+    graphqlLoader(),
     viteTsConfigPaths({
       root: './',
     }),

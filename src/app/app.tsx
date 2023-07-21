@@ -1,9 +1,46 @@
-import styled from 'styled-components';
-import axios from 'axios';
-
-import NxWelcome from './nx-welcome';
+/* eslint-disable import/first */
 import { ChangeEvent, useCallback, useState } from 'react';
+import styled from 'styled-components';
 
+
+window.global = window;
+
+import { Amplify, Storage } from 'aws-amplify';
+import {
+  Predictions,
+  AmazonAIPredictionsProvider,
+} from '@aws-amplify/predictions';
+import { WebcamImage } from './webcam';
+import { SidebarCustom} from './sidebar';
+import DataGridDemo from './worker-table';
+
+Amplify.configure({
+  Auth: {
+    identityPoolId: 'us-east-1:49c25012-178b-47ad-b350-f6ee17ea0deb',
+    region: 'us-east-1',
+  },
+  Storage: {
+    bucket: 'image-workers-dev',
+    region: 'us-east-1',
+  },
+  predictions: {
+    identify: {
+      identifyEntities: {
+        proxy: false,
+        region: 'us-east-1',
+        celebrityDetectionEnabled: false,
+        defaults: {
+          collectionId: 'collection-worker-faces-dev',
+          maxEntities: 1,
+        },
+      },
+    },
+  },
+});
+
+Predictions.addPluggable(new AmazonAIPredictionsProvider());
+
+//us-east-1:636c44b0-5688-4faa-8b6e-624c7eb68087
 export const mergeFileLists = (
   fileListA: FileList,
   fileListB: FileList
@@ -39,19 +76,44 @@ export const deleteItemFileList = (files: FileList, position: number) => {
 
 const StyledApp = styled.div`
   // Your style here
+  .App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    background-color: #282c34;
+  }
+
+  .Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0 10px;
+  }
+
+  img {
+    height: 400px;
+    width: 400px;
+    object-fit: cover;
+  }
+
+  button {
+    background-color: crimson;
+    color: #fff;
+    margin-top: 10px;
+    padding: 10px 40px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+  }
 `;
 
 export function App() {
   const [files, setFiles] = useState<FileList>();
   const [isLoading, setIsLoading] = useState(false);
-
-  const upload = useCallback(async (presignedUrl: string, file: File) => {
-    await axios
-      .put(presignedUrl, file)
-      .catch((error) =>
-        console.error(error.response.data, { request: error.request })
-      );
-  }, []);
+  const [identification, setIdentification] = useState<string>('');
 
   const handleFileChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -64,27 +126,56 @@ export function App() {
     [setFiles]
   );
 
-  const handleKeyPress = useCallback(
-    async (event: any) => {
+  async function onChange(e: any) {
+    const file = e.target.files[0];
+    try {
+      if (!identification) return alert('write cc');
       setIsLoading(true);
-      const response = await Promise.all(
-        Array.from(files ?? []).map((file) => upload('https://image-workers-dev.s3.us-east-1.amazonaws.com/1017250202/1c2c9ec9-9a17-4b73-a9db-55171e7072bc.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIARPPUQXDI5QZ6LPES%2F20230712%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20230712T072844Z&X-Amz-Expires=300&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEFgaCXVzLWVhc3QtMSJIMEYCIQD019pQP6Gbubqfu1rxqxPUuVWcnT4khbU23BULsrLxbgIhAMNxb%2F9lmoOQ90H22iZk7KdCX%2BKaFor2G5UwqOjwuTixKpoDCNH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMMTAxOTgxNDAzMzQ1IgxftLVAiecvLUlskQgq7gJ7e%2BNi%2BBSGvkvCQca5e0STrzXOpIiYG1eY0DTpqmGSonv77zfnLfWDX8qzqZ%2BLMu20RWlr%2FP72MEJn9yXr0HY8Mf5shT%2FPH2ewqcpmxOjyOaSd8ML8mfa53lL6TWWQoXANIzdjQsjiw1qyFuA5fjBEp%2ButdN5BkB2uC2Cn1SbSngKUvWLEEkYV41tOPPzIAChgcL84%2FDTHmWP%2F6ca%2BdN%2BXDiR%2F90tQj4UiAaQYPyXZoEV7HEqdPXFrRRHUWX7vxiYRc9L4PoXFrL72adZexFioxHEIXgW1Tn4Bq8QnuEO2yANP5O5LWWpOlid4sl4f6VHDsui71nMg8wlQUunjwibNhnl0g6Pi7PUkghyoJ9oCF7ZyVB4CMpNbotL26Q2PW5gYHjMFbmxbULeWtc4e03TS8No600WOX5cOOEMDtO%2B5aFRWr5eTtHHYyVzWkUakBUpejlgQswiPlEZnQTYI1gMWaodyhRbj7x%2B0o6B9bU0wrqq5pQY6nAGEnQ%2FXBqJTBELnp5t52dnVGrCzvRGedvdN4eWpwThjjiSlJ6ievvMJSX3qpmxmbh0GIn3oof77vlHYVS5pmSQa5NmXepJbLZfrKeFjAsxpzpjQlIudOvLCcV5BfYpicCBE58tvHbeVbiMCf46qpqTM7c986mfJZOp8vJZA%2BJ6Jw0Nv09eTOtve4xWF9tn1z5CvE8esj2AkGRdUaaU%3D&X-Amz-Signature=cec846eb020abde06e0856c93d120e242844f01c7d550d04d6787d76d5d55290&X-Amz-SignedHeaders=host&x-id=PutObject', file))
-      ).finally(() => setIsLoading(false));
-    },
-    [files, upload]
-  );
+      await Storage.put(file.name, file, {
+        contentType: 'image/png',
+        customPrefix: {
+          public: `${identification}/`,
+        },
+      });
+    } catch (error) {
+      console.log('Error uploading file: ', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  return <>
+    <SidebarCustom  />
+    <DataGridDemo />
+  </>
 
   return (
     <StyledApp>
-      <input
+      {isLoading && 'Loading...'}
+      <div style={{ display: 'block' }}>
+        <input type="file" onChange={onChange} /> Save image For User:
+        {identification}
+      </div>
+
+      <div>
+        <input
+          type="text"
+          placeholder="Identification"
+          value={identification}
+          onChange={(e) => setIdentification(e.target.value)}
+        />
+      </div>
+
+      <WebcamImage />
+      {/* <input
         multiple
         className="dn"
         type="file"
         name="file"
         onChange={handleFileChange}
       />
-      <button onClick={handleKeyPress}>Sent me</button>
-      <NxWelcome title="check-in-face-frontend" />
+      <button onClick={handleKeyPress}>Sent me</button> */}
+      {/* <NxWelcome title="check-in-face-frontend" /> */}
     </StyledApp>
   );
 }
