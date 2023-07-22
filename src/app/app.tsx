@@ -2,7 +2,6 @@
 import { ChangeEvent, useCallback, useState } from 'react';
 import styled from 'styled-components';
 
-
 window.global = window;
 
 import { Amplify, Storage } from 'aws-amplify';
@@ -11,8 +10,11 @@ import {
   AmazonAIPredictionsProvider,
 } from '@aws-amplify/predictions';
 import { WebcamImage } from './webcam';
-import { SidebarCustom} from './sidebar';
-import DataGridDemo from './worker-table';
+import { Sidebar } from './ui/sidebar';
+import { WorkListTable } from './worker-table';
+import { WorkerList } from './worker/worker-list';
+import { Indicators } from './ui/indicators/indicators';
+import { WorkerInfo } from './worker/worker-info';
 
 Amplify.configure({
   Auth: {
@@ -144,10 +146,23 @@ export function App() {
     }
   }
 
-  return <>
-    <SidebarCustom  />
-    <DataGridDemo />
-  </>
+  return (
+    <div className="flex">
+      <Sidebar>
+        <WorkerList />
+      </Sidebar>
+      <div className='block'>
+        <div className='flex justify-around'>
+          {/* <WorkerInfo /> */}
+        <Indicators />
+        <Indicators />
+        <Indicators />
+        </div>
+<WorkListTable />
+
+      </div>
+    </div>
+  );
 
   return (
     <StyledApp>
