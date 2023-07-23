@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "generate-schema": "pnpm apollo service:download --endpoint=https://oe5p6maoovfzjdfd7kxva7ali4.appsync-api.us-east-1.amazonaws.com/graphql graphql-schema.json --header=\"x-api-key: da2-2jsncbvpkzdo3hzczn36vjfw4i\"",
+    "generate-schema": "pnpm apollo service:download --endpoint=https://oe5p6maoovfzjdfd7kxva7ali4.appsync-api.us-east-1.amazonaws.com/graphql graphql-schema.json --header=\"x-api-key: da2-ngd7j6p3infejnjv2hscw2znw4\"",
     "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql",
     "build": "nx build",
     "test": "nx test"
@@ -19,6 +19,7 @@
     "graphql": "^16.7.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.2",
     "react-is": "18.2.0",
     "react-router-dom": "^6.14.2",
     "react-webcam": "^7.1.1",

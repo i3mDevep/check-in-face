@@ -46,6 +46,7 @@ specifiers:
   prettier: ^2.6.2
   react: 18.2.0
   react-dom: 18.2.0
+  react-hook-form: ^7.45.2
   react-is: 18.2.0
   react-router-dom: ^6.14.2
   react-webcam: ^7.1.1
@@ -68,6 +69,7 @@ dependencies:
   graphql: 16.7.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-hook-form: 7.45.2_react@18.2.0
   react-is: 18.2.0
   react-router-dom: 6.14.2_biqbaboplfbrettd7655fr4n2y
   react-webcam: 7.1.1_biqbaboplfbrettd7655fr4n2y
@@ -12261,6 +12263,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-hook-form/7.45.2_react@18.2.0:
+    resolution: {integrity: sha512-9s45OdTaKN+4NSTbXVqeDITd/nwIg++nxJGL8+OD5uf1DxvhsXQ641kaYHk5K28cpIOTYm71O/fYk7rFaygb3A==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}

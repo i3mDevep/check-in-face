@@ -1,12 +1,8 @@
-import { useQuery } from '@apollo/client';
-import { GetListWorker_getListWorker } from 'src/graphql/queries/__generated__/GetListWorker';
-import GET_LIST_WORKER from 'src/graphql/queries/getListWorker.gql';
 import { WorkerItem } from './worker-item';
+import { useGraphqlWorker } from '../../hooks/useGraphqlWorker';
 
 export const WorkerList = () => {
-  const { data } = useQuery<{
-    getListWorker: GetListWorker_getListWorker[];
-  }>(GET_LIST_WORKER);
+  const { resultGetWorker: { data } } = useGraphqlWorker()
 
   return (
     <div className="h-screen py-8 overflow-y-auto bg-white border-l border-r sm:w-64 w-60 dark:bg-gray-900 dark:border-gray-700">
@@ -15,7 +11,7 @@ export const WorkerList = () => {
       </h2>
       <div className="mt-8 space-y-4">
         {data?.getListWorker.map((worker) => (
-          <WorkerItem {...worker} />
+          <WorkerItem key={worker.identification} {...worker} />
         ))}
       </div>
     </div>

@@ -1,11 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
 
-export interface SidebarProps {
-  children: ReactNode;
-}
-
-export const Sidebar = ({ children }: SidebarProps) => {
+export const Sidebar = () => {
   return (
     <aside className="flex">
       <div className="flex flex-col items-center w-16 h-screen py-8 space-y-8 bg-white dark:bg-gray-900 dark:border-gray-700">
@@ -112,8 +108,9 @@ export const Sidebar = ({ children }: SidebarProps) => {
           </svg>
         </a>
       </div>
-
-      {children}
+      <div className="flex w-full bg-white dark:bg-gray-900 dark:border-gray-700">
+        <Outlet />
+      </div>
     </aside>
   );
 };

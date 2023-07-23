@@ -1,16 +1,12 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
 
-import App from './app/app';
+import { router } from './app/app';
 import { ApolloProvider } from '@apollo/client';
 import { client } from './graphql/client';
-import './index.css';
+import { RouterProvider } from 'react-router-dom';
 
-// const theme = createTheme({
-//   typography: {
-//     fontFamily: 'Raleway',
-//   },
-// });
+import './index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -19,7 +15,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <StrictMode>
     <ApolloProvider client={client}>
-      <App />
+     <RouterProvider router={router} />
     </ApolloProvider>
   </StrictMode>
 );
