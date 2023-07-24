@@ -1,0 +1,11 @@
+query GetListWorkerImages($identification: ID!) {
+  getWorkerImages(identification: $identification) {
+    pathFaceInCollection
+    identification
+    collectionId
+    faceId
+    created
+    modified
+    entity
+  }
+}

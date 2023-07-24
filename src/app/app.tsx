@@ -204,6 +204,10 @@ import { Indicators } from './ui/indicators/indicators';
 import { WorkListTable } from './worker-table';
 import { WorkerCreatedTable } from './entities/worker/components';
 import { WorkerForm } from './entities/worker/components/worker-form/worker-form';
+import { InputImages } from './entities/worker-images/components/input-images';
+import { SearchWorkerWithImage } from './entities/worker/components/search-worker-with-image';
+import { IdentificationProvider } from './shared/provider/identification-provider';
+import { ImagesWorker } from './entities/worker-images/components/images-worker';
 
 export const router = createBrowserRouter([
   {
@@ -229,12 +233,26 @@ export const router = createBrowserRouter([
       },
       {
         path: 'worker/created',
-        element:<>
-        <WorkerCreatedTable />
-        <WorkerForm />
-        </> 
-      }
+        element: (
+          <>
+            {/* <SearchWorkerWithImage /> */}
+            <WorkerCreatedTable />
+            <WorkerForm />
+          </>
+        ),
+      },
+      {
+        path: 'worker-image/',
+        element: (
+          <IdentificationProvider>
+            <WorkerList />
+            <div className="flex flex-col justify-center items-center m-auto gap-5">
+              <ImagesWorker />
+              <InputImages />
+            </div>
+          </IdentificationProvider>
+        ),
+      },
     ],
   },
 ]);
-

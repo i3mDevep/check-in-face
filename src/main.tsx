@@ -6,7 +6,9 @@ import { ApolloProvider } from '@apollo/client';
 import { client } from './graphql/client';
 import { RouterProvider } from 'react-router-dom';
 
+import './app/amplify'
 import './index.css';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

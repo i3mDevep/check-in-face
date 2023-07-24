@@ -4,8 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
-    "generate-schema": "pnpm apollo service:download --endpoint=https://oe5p6maoovfzjdfd7kxva7ali4.appsync-api.us-east-1.amazonaws.com/graphql graphql-schema.json --header=\"x-api-key: da2-ngd7j6p3infejnjv2hscw2znw4\"",
-    "generate-types": "npx apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql",
+    "generate-types": "nx generate-graphql-types",
     "build": "nx build",
     "test": "nx test"
   },
