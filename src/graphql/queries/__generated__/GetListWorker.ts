@@ -14,6 +14,7 @@ export interface GetListWorker_getListWorker {
   created: string | null;
   modified: string | null;
   entity: string | null;
+  profilePath: string | null;
 }
 
 export interface GetListWorker {

@@ -198,59 +198,18 @@
 // export default App;
 
 import { createBrowserRouter } from 'react-router-dom';
-import { Sidebar } from './ui/sidebar';
-import { WorkerList } from './entities/worker/components/worker-list';
-import { Indicators } from './ui/indicators/indicators';
-import { WorkListTable } from './worker-table';
-import { WorkerCreatedTable } from './entities/worker/components';
-import { WorkerForm } from './entities/worker/components/worker-form/worker-form';
-import { InputImages } from './entities/worker-images/components/input-images';
-import { SearchWorkerWithImage } from './entities/worker/components/search-worker-with-image';
-import { IdentificationProvider } from './shared/provider/identification-provider';
-import { ImagesWorker } from './entities/worker-images/components/images-worker';
+import { MainLayout } from './shared/components/main-layout';
+import { WorkerMain } from './pages/worker-main';
 
 export const router = createBrowserRouter([
   {
     path: 'app',
-    element: <Sidebar />,
+    element: <MainLayout />,
     children: [
       {
-        index: true,
         path: 'worker',
         element: (
-          <>
-            <WorkerList />
-            <div>
-              <div className="flex justify-around">
-                <Indicators />
-                <Indicators />
-                <Indicators />
-              </div>
-              <WorkListTable />
-            </div>
-          </>
-        ),
-      },
-      {
-        path: 'worker/created',
-        element: (
-          <>
-            {/* <SearchWorkerWithImage /> */}
-            <WorkerCreatedTable />
-            <WorkerForm />
-          </>
-        ),
-      },
-      {
-        path: 'worker-image/',
-        element: (
-          <IdentificationProvider>
-            <WorkerList />
-            <div className="flex flex-col justify-center items-center m-auto gap-5">
-              <ImagesWorker />
-              <InputImages />
-            </div>
-          </IdentificationProvider>
+          <WorkerMain />
         ),
       },
     ],

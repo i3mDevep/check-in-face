@@ -1,0 +1,13 @@
+.container_upload {
+    height: 200px !important;
+    min-width: 130px !important;
+    flex-direction: column;
+}
+
+.container_upload .file-types {
+    display: none;
+}
+
+.container_upload .dmajdp > span {
+    text-align: center;
+}

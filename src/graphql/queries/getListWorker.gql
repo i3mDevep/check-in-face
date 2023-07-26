@@ -5,5 +5,6 @@ query GetListWorker {
     created
     modified
     entity
+    profilePath
   }
 }

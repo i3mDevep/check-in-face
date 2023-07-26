@@ -10,7 +10,7 @@ export enum SelectedActionType {
 
 export interface AddAction {
   type: SelectedActionType.SELECT;
-  payload: GetListWorker_getListWorker;
+  payload: null | GetListWorker_getListWorker;
 }
 
 export const initialStateIdentification: StateIdentification = {
