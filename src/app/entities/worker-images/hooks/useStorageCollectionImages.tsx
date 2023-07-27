@@ -1,6 +1,6 @@
 import { Storage } from 'aws-amplify';
 
-export const useStorageImages = () => {
+export const useStorageCollectionImages = () => {
   const saveImage = async (params: {
     name: string;
     file: File;
@@ -9,7 +9,7 @@ export const useStorageImages = () => {
     await Storage.put(params.name, params.file, {
       contentType: 'image/png',
       customPrefix: {
-        public: `${params.identification}/`,
+        public: `collection-images/${params.identification}/`,
       },
     });
   };

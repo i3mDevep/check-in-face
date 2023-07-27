@@ -1,12 +1,13 @@
-import { Alert, Button, DialogActions, Skeleton } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Alert, DialogActions, Skeleton } from '@mui/material';
 import { forwardRef } from 'react';
 import Webcam from 'react-webcam';
 import { DialogBase } from 'src/app/shared/components/dialog-base';
 
 export const ModalCameraUpdate = forwardRef<
   Webcam,
-  { open: boolean; onClose: () => void; capturePicture: () => void }
->(({ open, onClose, capturePicture }, webcamRef) => {
+  { open: boolean; onClose: () => void; capturePicture: () => void, loading?: boolean }
+>(({ open, onClose, capturePicture, loading }, webcamRef) => {
   const videoConstraints = {
     width: 320,
     height: 320,
@@ -18,13 +19,14 @@ export const ModalCameraUpdate = forwardRef<
       dialogProps={{ open, onClose }}
       otherComponent={
         <DialogActions>
-          <Button
+          <LoadingButton
             sx={{ width: 100, margin: 'auto', position: 'relative', top: -20 }}
             variant="contained"
             onClick={capturePicture}
+            loading={!!loading}
           >
             Capture
-          </Button>
+          </LoadingButton>
         </DialogActions>
       }
     >

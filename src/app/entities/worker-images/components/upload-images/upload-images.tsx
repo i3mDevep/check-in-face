@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
-import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import { FileUploader } from 'react-drag-drop-files';
 import { IconButton } from '@mui/material';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Webcam from 'react-webcam';
 
 import { ModalCameraUpdate } from './modal-camera-upload';

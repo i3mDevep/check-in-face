@@ -1,6 +1,6 @@
 import { DialogActions } from '@mui/material';
 import { v4 as uuidV4 } from 'uuid';
-import { useStorageImages } from '../../hooks/useStorageImages';
+import { useStorageCollectionImages } from '../../hooks/useStorageCollectionImages';
 import {
   useIdentificationDispatch,
   useIdentificationState,
@@ -14,7 +14,7 @@ export const ButtonActionSave = ({ file, onEnd }: { file?: File, onEnd: () => vo
 
   const { workerSelected } = useIdentificationState();
   const dispatch = useIdentificationDispatch();
-  const { saveImage } = useStorageImages();
+  const { saveImage } = useStorageCollectionImages();
 
   const handleSaveFile = async () => {
     if (!workerSelected || !file) return;

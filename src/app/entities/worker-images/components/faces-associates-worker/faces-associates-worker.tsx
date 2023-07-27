@@ -18,10 +18,7 @@ export function FacesAssociatesWorker({
   return (
     <ImageList
       sx={{
-        width: 500,
-        height: '100%',
-        gridAutoColumns: 'min-content',
-        gridAutoFlow: 'column',
+        width: 500
       }}
       cols={4}
       rowHeight={164}

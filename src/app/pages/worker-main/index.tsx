@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { v4 as uuidV4 } from 'uuid';
+import { Stack } from '@mui/material';
 import { ModalWorkerSelected } from 'src/app/entities/shared/modal-worker-selected';
 import { FacesAssociatesWorker } from 'src/app/entities/worker-images/components/faces-associates-worker';
 import {
@@ -7,11 +8,10 @@ import {
   PreviewImage,
   UploadImages,
 } from 'src/app/entities/worker-images/components/upload-images';
-import { WorkerTable } from 'src/app/entities/worker/components';
+import { WorkerTable } from 'src/app/entities/worker/components/worker-table';
 import { ModalCreateWorker } from 'src/app/entities/worker/components/create-worker';
 import { IdentificationProvider } from 'src/app/shared/provider/identification-provider';
 import { convertBase64ToFile } from 'src/app/utils/convert-base64-to-file';
-import { Box, Stack } from '@mui/material';
 
 export const WorkerMain = () => {
   const [prevImg, setPrevImg] = useState<string | null | undefined>(null);

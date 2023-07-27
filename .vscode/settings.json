@@ -3,6 +3,7 @@
         "Pluggable",
         "Raleway",
         "tailwindcss",
-        "tinycolor"
+        "tinycolor",
+        "VITE"
     ]
 }

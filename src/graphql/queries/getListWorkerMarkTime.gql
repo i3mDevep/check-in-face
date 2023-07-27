@@ -1,0 +1,11 @@
+query GetListWorkerMarkTime($query: WorkerMarkTimeQuery!) {
+  getListWorkerMarkTime(query: $query) {
+    dateRegister
+    identification
+    reason
+    picture
+    created
+    modified
+    entity
+  }
+}

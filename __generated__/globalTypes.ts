@@ -7,10 +7,23 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface MarkRecordWorkerInput {
+  dateRegister: string;
+  imageKey: string;
+  reason: string;
+}
+
 export interface WorkerInput {
   fullName: string;
   identification: string;
   profilePath?: string | null;
+}
+
+export interface WorkerMarkTimeQuery {
+  identification: string;
+  year: string;
+  month: string;
+  day?: string | null;
 }
 
 //==============================================================

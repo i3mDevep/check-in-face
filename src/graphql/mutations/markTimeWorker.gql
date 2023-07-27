@@ -1,0 +1,6 @@
+mutation MarkTimeWorker($props: MarkRecordWorkerInput!) {
+  markRecordWorker(props: $props) {
+    identification
+    fullName
+  }
+}
