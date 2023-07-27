@@ -5,6 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { useGraphqlWorker } from '../../hooks/useGraphqlWorker';
+import { ListSubheader } from '@mui/material';
 
 export function WorkerListSelected({
   onClickItem,
@@ -17,6 +18,7 @@ export function WorkerListSelected({
   return (
     <List
       dense
+      subheader={<ListSubheader>Select a worker</ListSubheader>}
       sx={{
         width: '100%',
         maxWidth: 500,
@@ -34,7 +36,7 @@ export function WorkerListSelected({
           >
             <ListItemButton>
               <ListItemAvatar>
-                <Avatar alt={identification} src={profilePath as string} />
+                <Avatar alt={identification} src={profilePath as string ?? "https://cdn-icons-png.flaticon.com/512/5556/5556512.png"} />
               </ListItemAvatar>
               <ListItemText
                 id={labelId}

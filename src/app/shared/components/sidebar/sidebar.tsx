@@ -3,7 +3,6 @@ import SidebarItem from "./sidebar-item";
 import SidebarItemCollapse from "./sidebar-collapse";
 import appRoutes from "./build-sidebar";
 import { sizeConfigs } from "src/app/shared/config/size-config";
-import { colorConfigs } from "src/app/shared/config/color-config";
 
 
 export const Sidebar = () => {

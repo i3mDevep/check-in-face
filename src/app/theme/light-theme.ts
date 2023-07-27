@@ -1,11 +1,8 @@
 import { ThemeOptions } from '@mui/material';
-import tinycolor from 'tinycolor2';
 
 const primaryMainColor = '#233044'
-const color = tinycolor(primaryMainColor);
 
-const lightColor = color.saturate(10).lighten(20).toString();
-
+const lightColor = 'rgb(102, 157, 246)';
 
 const lightThemeOptions: ThemeOptions = {
   breakpoints: {
@@ -20,7 +17,8 @@ const lightThemeOptions: ThemeOptions = {
     unit: 'px',
   },
   direction: 'ltr',
-  components: {},
+  components: {
+  },
   palette: {
     mode: 'light',
     common: {

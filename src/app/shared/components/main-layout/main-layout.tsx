@@ -1,17 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Stack, Box, AppBar, Toolbar, Typography } from '@mui/material';
-import { Sidebar } from '../sidebar';
-import { sizeConfigs } from 'src/app/shared/config/size-config';
-
-function appBarLabel(label: string) {
-  return (
-    <Toolbar>
-      <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-        {label}
-      </Typography>
-    </Toolbar>
-  );
-}
+import { SidebarV2 } from '../sidebar';
 
 export const MainLayout = () => {
   return (
@@ -20,24 +9,24 @@ export const MainLayout = () => {
         component="nav"
         sx={{
           flexShrink: 0,
-          width: sizeConfigs.sidebar.width,
           margin: 10,
         }}
       >
-        <Sidebar />
+        <SidebarV2 />
       </Box>
-      <Stack flexDirection="column" width="100%">
+      <Stack margin={10} flexDirection="column" width="100%">
         <AppBar
           position="static"
           sx={{
             boxShadow: 'none',
-            backgroundColor: 'white',
-            color: 'black',
             marginBottom: 20,
+            borderRadius: 10,
           }}
           enableColorOnDark
         >
-          {appBarLabel('Worker')}
+          <Toolbar>
+            <Typography>Worker application tracer</Typography>
+          </Toolbar>
         </AppBar>
         <Outlet />
       </Stack>

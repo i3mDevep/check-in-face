@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import Button from '@mui/material/Button';
-import { FormCreateWorker } from './form-create-worker';
 import { DialogBase } from 'src/app/shared/components/dialog-base';
+import { IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { FormCreateWorker } from './form-create-worker';
 
 export function ModalCreateWorker() {
   const [open, setOpen] = useState(false);
@@ -16,13 +17,14 @@ export function ModalCreateWorker() {
 
   return (
     <>
-      <Button
-        sx={{ maxWidth: 200, marginLeft: 'auto' }}
-        variant="contained"
+      <IconButton
         onClick={handleClickOpen}
+        sx={{ maxWidth: 200, marginLeft: 'auto' }}
+        color="primary"
+        aria-label="add to shopping cart"
       >
-        Create new worker
-      </Button>
+        <AddIcon />
+      </IconButton>
       <DialogBase
         title="Create worker"
         description="To create a new worker, please enter your full name here

@@ -9,6 +9,7 @@ specifiers:
   '@mui/lab': 5.0.0-alpha.137
   '@mui/material': ^5.14.1
   '@mui/x-data-grid': ^6.10.1
+  '@mui/x-date-pickers': ^6.10.2
   '@nx/cypress': 16.5.1
   '@nx/eslint-plugin': 16.5.1
   '@nx/js': 16.5.1
@@ -78,6 +79,7 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.137_ucskie5rshqbrhqxlhvhlplzba
   '@mui/material': 5.14.1_t72as5nkc72wvuzlfm5pknb3h4
   '@mui/x-data-grid': 6.10.1_xzbzu4rjom73pc6w2tafgsrzuu
+  '@mui/x-date-pickers': 6.10.2_blc7segeklmpyegalv6rg3livq
   '@swc/helpers': 0.5.1
   aws-amplify: 5.3.4_react-native@0.72.3
   axios: 1.4.0
@@ -4563,6 +4565,60 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       reselect: 4.1.8
+    dev: false
+
+  /@mui/x-date-pickers/6.10.2_blc7segeklmpyegalv6rg3livq:
+    resolution: {integrity: sha512-RZHvPj5UYGdV2FoBlTbtAtg1aaJ1sbdD9LM9vSgefQWMW0vFC4fSYtFACS4ptxK/8Q0FHyuVZF5bDO+TUAPxQg==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.9.0
+      '@emotion/styled': ^11.8.1
+      '@mui/base': ^5.0.0-alpha.87
+      '@mui/material': ^5.8.6
+      '@mui/system': ^5.8.0
+      date-fns: ^2.25.0
+      date-fns-jalali: ^2.13.0-0
+      dayjs: ^1.10.7
+      luxon: ^3.0.2
+      moment: ^2.29.4
+      moment-hijri: ^2.1.2
+      moment-jalaali: ^0.7.4 || ^0.8.0 || ^0.9.0 || ^0.10.0
+      react: ^17.0.0 || ^18.0.0
+      react-dom: ^17.0.0 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      date-fns:
+        optional: true
+      date-fns-jalali:
+        optional: true
+      dayjs:
+        optional: true
+      luxon:
+        optional: true
+      moment:
+        optional: true
+      moment-hijri:
+        optional: true
+      moment-jalaali:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.22.6
+      '@emotion/react': 11.11.1_i73ekzlbntu7jol6ph2fvy4mga
+      '@emotion/styled': 11.11.0_rowjtfdjat7gur3v4vqpuckrf4
+      '@mui/base': 5.0.0-beta.8_qzycrpzqvmvb7wd2jdibmpq2cy
+      '@mui/material': 5.14.1_t72as5nkc72wvuzlfm5pknb3h4
+      '@mui/system': 5.14.1_qhxrupu23zhzst4vicdxw3uqga
+      '@mui/utils': 5.14.1_react@18.2.0
+      '@types/react-transition-group': 4.4.6
+      clsx: 1.2.1
+      dayjs: 1.11.9
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
     dev: false
 
   /@nicolo-ribaudo/semver-v6/6.3.3:

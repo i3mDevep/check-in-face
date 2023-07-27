@@ -34,7 +34,7 @@ const columns: GridColDef<GetListWorker_getListWorker>[] = [
   {
     field: 'profilePath',
     headerName: 'Profile',
-    renderCell: (params) => <Avatar alt={params.value} src={params.value} />,
+    renderCell: (params) => <Avatar alt={params.value} src={params.value ?? 'https://cdn-icons-png.flaticon.com/512/5556/5556512.png'} />,
   },
   { field: 'identification', headerName: 'Identification', width: 120 },
   {
@@ -71,6 +71,7 @@ export function WorkerTable() {
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
+        sx={{ '&.MuiDataGrid-root': { borderRadius: 10 }}}
         getRowId={(row) => row.identification}
         rows={data?.getListWorker ?? []}
         columns={columns}
