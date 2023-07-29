@@ -6,7 +6,7 @@ frontend:
         - npx pnpm@7.5.1 install
     build:
       commands:
-        - npx pnpm@7.5.1 run build
+        - npx pnpm@7.5.1 run build --skip-nx-cache
   artifacts:
     baseDirectory: dist/check-in-face-frontend
     files:

@@ -1,8 +1,8 @@
 import { ThemeOptions } from '@mui/material';
 
-const primaryMainColor = '#233044'
+const primaryMainColor = 'rgb(5, 30, 52)'
 
-const lightColor = 'rgb(102, 157, 246)';
+const lightColor = 'rgb(25, 50, 72)';
 
 const lightThemeOptions: ThemeOptions = {
   breakpoints: {
@@ -28,18 +28,18 @@ const lightThemeOptions: ThemeOptions = {
     primary: {
       main: primaryMainColor,
       light: lightColor,
-      dark: '#1e293a',
+      dark: 'rgb(0, 10, 32)',
       contrastText: '#fff',
     },
     secondary: {
       main: '#ff9c2b',
       light: '#fcfce3',
-      dark: '#fe5d36',
+      dark: '#EB8823',
       contrastText: '#fff',
     },
     error: {
       main: '#d32f2f',
-      light: '#ef5350',
+      light: '#FFB03F',
       dark: '#c62828',
       contrastText: '#fff',
     },
