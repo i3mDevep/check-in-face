@@ -2,6 +2,7 @@ query GetListWorkerMarkTime($query: WorkerMarkTimeQuery!) {
   getListWorkerMarkTime(query: $query) {
     dateRegister
     identification
+    type
     reason
     picture
     created

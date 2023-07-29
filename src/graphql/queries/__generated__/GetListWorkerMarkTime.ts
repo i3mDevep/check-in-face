@@ -11,9 +11,10 @@ import { WorkerMarkTimeQuery } from "./../../../../__generated__/globalTypes";
 
 export interface GetListWorkerMarkTime_getListWorkerMarkTime {
   __typename: "WorkerMarkTime";
-  dateRegister: string;
-  identification: string;
-  reason: string;
+  dateRegister: string | null;
+  identification: string | null;
+  type: string | null;
+  reason: string | null;
   picture: string | null;
   created: string | null;
   modified: string | null;

@@ -1,13 +1,6 @@
 import { Chip } from '@mui/material';
+import { TRACER_REASON } from '../../const/tracer-types';
 
-export enum TRACER_REASON {
-  START_ANY_REASON = 'start any reason',
-  START_WORK = 'start work',
-  START_LUNCH = 'start lunch',
-  END_LUNCH = 'end lunch',
-  END_WORK = 'end work',
-  END_ANY_REASON = 'end any reason',
-}
 
 export const TracerTimeReason = ({
   onClick,

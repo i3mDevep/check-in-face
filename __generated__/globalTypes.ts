@@ -16,6 +16,7 @@ export interface MarkRecordWorkerInput {
   dateRegister: string;
   imageKey: string;
   reason: string;
+  type: string;
 }
 
 export interface WorkerInput {

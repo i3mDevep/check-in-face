@@ -11,11 +11,9 @@ import { ModalWorkerCamera } from 'src/app/entities/shared/modal-worker-camera';
 
 import { useGraphqlMarkTimeWorker } from '../../hooks/useGraphqlMarkTimeWorker';
 import { useStorageMarkTimeWorker } from '../../hooks/useStorageMarkTimeWorker';
-import {
-  TRACER_REASON,
-  TracerTimeReason,
-} from '../tracer-time-worker-table/tracer-time-reason';
+import { TracerTimeReason } from '../tracer-time-worker-table/tracer-time-reason';
 import { Stack } from '@mui/material';
+import { TRACER_REASON, typeWithTracerReason } from '../../const/tracer-types';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -26,13 +24,14 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export function MarkWorkerTime() {
   const webcamRef = useRef<Webcam>(null);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [messageSnackbar, setMessageSnackbar] = useState<{
+    message: string;
+    severity: AlertProps['severity'];
+  } | null>();
+
   const [reasonSelected, setReasonSelected] = useState<
     TRACER_REASON | string | null
   >(null);
-  const [messageSnackbar, setMessageSnackbar] = useState<
-    { identification?: string; fullName?: string } | undefined
-  >();
 
   const { saveImage, loading } = useStorageMarkTimeWorker();
   const {
@@ -48,7 +47,7 @@ export function MarkWorkerTime() {
       return;
     }
 
-    setOpenSnackbar(false);
+    setMessageSnackbar(null);
   };
 
   const handleCloseModal = () => {
@@ -63,35 +62,49 @@ export function MarkWorkerTime() {
     webcamRef.current?.video?.pause();
     const imageFile = convertBase64ToFile(imageSrc, nameImage, 'image/jpeg');
     const imageSaved = await saveImage({ name: nameImage, file: imageFile });
-    const result = await markTimeWorker({
-      variables: {
-        props: {
-          dateRegister: new Date().toISOString(),
-          imageKey: `timeline-worker/${imageSaved.key}`,
-          reason: reasonSelected,
+    try {
+      const result = await markTimeWorker({
+        variables: {
+          props: {
+            dateRegister: new Date().toISOString(),
+            imageKey: `timeline-worker/${imageSaved.key}`,
+            reason: reasonSelected,
+            type: typeWithTracerReason[reasonSelected as TRACER_REASON],
+          },
         },
-      },
-    });
+      });
+  
+      setMessageSnackbar({
+        message: `${result?.data?.markRecordWorker?.identification} - ${result?.data?.markRecordWorker?.fullName}`,
+        severity: 'success',
+      });
+  
+      handleCloseModal();
+    } catch (error: any) {
+      webcamRef.current?.video?.play();
 
-    setMessageSnackbar({ ...result.data?.markRecordWorker });
-    setOpenSnackbar(true);
-    handleCloseModal();
+      setMessageSnackbar({
+        message: error.message,
+        severity: 'error',
+      });
+    }
+
   }, [markTimeWorker, reasonSelected, saveImage]);
 
   return (
     <>
       <Snackbar
-        open={openSnackbar}
+        open={!!messageSnackbar}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
         <Alert
           onClose={handleCloseSnackbar}
-          severity="success"
+          severity={messageSnackbar?.severity}
           sx={{ width: '100%' }}
         >
-          {`${messageSnackbar?.identification} - ${messageSnackbar?.fullName}`}
+          {messageSnackbar?.message}
         </Alert>
       </Snackbar>
       <ModalWorkerCamera
