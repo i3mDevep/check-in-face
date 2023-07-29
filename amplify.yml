@@ -4,6 +4,7 @@ frontend:
     preBuild:
       commands:
         - npx pnpm@7.5.1 install
+        - nvm use $VERSION_NODE_16
     build:
       commands:
         - npx pnpm@7.5.1 run build
