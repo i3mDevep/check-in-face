@@ -6,10 +6,16 @@ import Webcam from 'react-webcam';
 import Fab from '@mui/material/Fab';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
-import { ModalCameraUpdate } from 'src/app/entities/worker-images/components/upload-images';
 import { convertBase64ToFile } from 'src/app/utils/convert-base64-to-file';
+import { ModalWorkerCamera } from 'src/app/entities/shared/modal-worker-camera';
+
 import { useGraphqlMarkTimeWorker } from '../../hooks/useGraphqlMarkTimeWorker';
 import { useStorageMarkTimeWorker } from '../../hooks/useStorageMarkTimeWorker';
+import {
+  TRACER_REASON,
+  TracerTimeReason,
+} from '../tracer-time-worker-table/tracer-time-reason';
+import { Stack } from '@mui/material';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -21,6 +27,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 export function MarkWorkerTime() {
   const webcamRef = useRef<Webcam>(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [reasonSelected, setReasonSelected] = useState<
+    TRACER_REASON | string | null
+  >(null);
   const [messageSnackbar, setMessageSnackbar] = useState<
     { identification?: string; fullName?: string } | undefined
   >();
@@ -32,7 +41,7 @@ export function MarkWorkerTime() {
   const [openModalMarkTime, setOpenModalMarkTime] = useState(false);
 
   const handleCloseSnackbar = (
-    event: React.SyntheticEvent | Event,
+    _: React.SyntheticEvent | Event,
     reason?: string
   ) => {
     if (reason === 'clickaway') {
@@ -42,10 +51,15 @@ export function MarkWorkerTime() {
     setOpenSnackbar(false);
   };
 
+  const handleCloseModal = () => {
+    setReasonSelected(null);
+    setOpenModalMarkTime(false);
+  };
+
   const capture = useCallback(async () => {
     const imageSrc = webcamRef.current?.getScreenshot();
     const nameImage = uuidV4();
-    if (!imageSrc) return;
+    if (!imageSrc || !reasonSelected) return;
     webcamRef.current?.video?.pause();
     const imageFile = convertBase64ToFile(imageSrc, nameImage, 'image/jpeg');
     const imageSaved = await saveImage({ name: nameImage, file: imageFile });
@@ -54,15 +68,15 @@ export function MarkWorkerTime() {
         props: {
           dateRegister: new Date().toISOString(),
           imageKey: `timeline-worker/${imageSaved.key}`,
-          reason: 'IN',
+          reason: reasonSelected,
         },
       },
     });
 
     setMessageSnackbar({ ...result.data?.markRecordWorker });
     setOpenSnackbar(true);
-    setOpenModalMarkTime(false);
-  }, [markTimeWorker, saveImage]);
+    handleCloseModal();
+  }, [markTimeWorker, reasonSelected, saveImage]);
 
   return (
     <>
@@ -80,12 +94,32 @@ export function MarkWorkerTime() {
           {`${messageSnackbar?.identification} - ${messageSnackbar?.fullName}`}
         </Alert>
       </Snackbar>
-      <ModalCameraUpdate
+      <ModalWorkerCamera
         ref={webcamRef}
         open={openModalMarkTime}
         capturePicture={capture}
         loading={loading || loadingMutationMark}
-        onClose={() => setOpenModalMarkTime(false)}
+        onClose={handleCloseModal}
+        loadingButtonSx={{ top: 0, marginBottom: 10, marginTop: 10 }}
+        disabledCapture={!reasonSelected}
+        slots={{
+          dialogActionComponent: (
+            <Stack
+              display="grid"
+              gridTemplateColumns="repeat(3, 1fr)"
+              width="min-content"
+              gap={2}
+              spacing={1}
+              position="relative"
+              top={-20}
+            >
+              <TracerTimeReason
+                selected={reasonSelected as TRACER_REASON}
+                onClick={setReasonSelected}
+              />
+            </Stack>
+          ),
+        }}
       />
       <Fab
         sx={{ position: 'fixed', bottom: 0, right: 0, margin: 20 }}

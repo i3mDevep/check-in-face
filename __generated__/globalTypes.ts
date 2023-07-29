@@ -7,6 +7,11 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface DisassociateWorkerImagesInput {
+  identification: string;
+  faceIds?: (string | null)[] | null;
+}
+
 export interface MarkRecordWorkerInput {
   dateRegister: string;
   imageKey: string;

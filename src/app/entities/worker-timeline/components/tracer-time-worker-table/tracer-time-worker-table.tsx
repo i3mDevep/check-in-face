@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 
 import { GetListWorkerMarkTime_getListWorkerMarkTime } from 'src/graphql/queries/__generated__/GetListWorkerMarkTime';
 import { useGraphqlMarkTimeWorker } from '../../hooks/useGraphqlMarkTimeWorker';
-import { Avatar } from '@mui/material';
+import { Avatar, Chip } from '@mui/material';
 import { useMemo, useState } from 'react';
 import { FilterDateMarkTracerWorker } from './filter-data-tracer-time';
 
@@ -85,7 +85,15 @@ const columns: GridColDef<GetListWorkerMarkTime_getListWorkerMarkTime>[] = [
       return dayjs(params.value).format('MMMM D, YYYY h:mm A');
     },
   },
-  { field: 'reason', filterable: false, headerName: 'Reason', width: 100 },
+  {
+    field: 'reason',
+    filterable: false,
+    headerName: 'Reason',
+    width: 150,
+    renderCell: (params) => (
+      <Chip label={params.row.reason} variant="outlined" />
+    ),
+  },
   {
     field: 'created',
     filterable: false,
@@ -118,12 +126,10 @@ export function TracerTimeWorkerTable({
   const [filterApplied, setFilterApplied] = useState<GridFilterModel | null>(
     null
   );
-
   const [filterButtonEl, setFilterButtonEl] =
     useState<HTMLButtonElement | null>(null);
 
   const filterQueryDto = useMemo(() => {
-
     if (!filterApplied) return defaultStringFilter;
 
     const filterDay = filterApplied.items.find(

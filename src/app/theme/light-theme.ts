@@ -32,9 +32,9 @@ const lightThemeOptions: ThemeOptions = {
       contrastText: '#fff',
     },
     secondary: {
-      main: '#9c27b0',
-      light: '#ba68c8',
-      dark: '#7b1fa2',
+      main: '#ff9c2b',
+      light: '#fcfce3',
+      dark: '#fe5d36',
       contrastText: '#fff',
     },
     error: {

@@ -4,6 +4,7 @@ query GetListWorkerImages($identification: ID!) {
     identification
     collectionId
     faceId
+    status
     created
     modified
     entity

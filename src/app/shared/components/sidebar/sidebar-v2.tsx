@@ -16,7 +16,7 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import People from '@mui/icons-material/People';
 import Dns from '@mui/icons-material/Dns';
 import BallotIcon from '@mui/icons-material/Ballot';
-import { Drawer } from '@mui/material';
+import { Avatar, Drawer } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const data = [
@@ -71,9 +71,10 @@ export function SidebarV2() {
         }}
       >
         <Paper elevation={0} sx={{ maxWidth: 256 }}>
-          <FireNav component="nav" disablePadding>
+          <FireNav sx={{ position: 'relative' }} component="nav" disablePadding>
             <ListItemButton disableTouchRipple component="a" href="app/worker">
-              <ListItemIcon sx={{ fontSize: 20 }}>
+              <Avatar src='https://cdn-icons-png.flaticon.com/512/5556/5556512.png' />
+              <ListItemIcon sx={{ fontSize: 14, left: 50, bottom: 0, position: 'absolute' }}>
                 <span aria-label="icon-app" role="img">
                   🔥
                 </span>

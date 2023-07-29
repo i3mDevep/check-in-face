@@ -3,8 +3,7 @@ import { FileUploader } from 'react-drag-drop-files';
 import { IconButton } from '@mui/material';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import Webcam from 'react-webcam';
-
-import { ModalCameraUpdate } from './modal-camera-upload';
+import { ModalWorkerCamera } from 'src/app/entities/shared/modal-worker-camera';
 
 import './override.css';
 
@@ -43,7 +42,7 @@ export const UploadImages = ({ onCaptureImageUrl }: UploadImagesProps) => {
         types={fileTypes}
         handleChange={handleChangeInputFile}
       />
-      <ModalCameraUpdate
+      <ModalWorkerCamera
         ref={webcamRef}
         open={modalCamera}
         onClose={handleCloseModalCamera}

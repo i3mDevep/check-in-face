@@ -13,6 +13,7 @@ export interface GetListWorkerImages_getWorkerImages {
   identification: string | null;
   collectionId: string | null;
   faceId: string | null;
+  status: string | null;
   created: string | null;
   modified: string | null;
   entity: string | null;

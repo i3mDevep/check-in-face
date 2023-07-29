@@ -1,0 +1,3 @@
+mutation DisassociateWorkerImages($props: DisassociateWorkerImagesInput!) {
+  disassociateWorkerImages(props: $props)
+}
