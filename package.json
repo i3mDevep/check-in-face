@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "generate-types": "nx generate-graphql-types",
-    "build": "nx build --skip-nx-cache",
+    "build": "nx build --verbose",
     "test": "nx test"
   },
   "private": true,
