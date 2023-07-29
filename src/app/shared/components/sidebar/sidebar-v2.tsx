@@ -38,7 +38,6 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
   },
 });
 
-
 export function SidebarV2() {
   const [open, setOpen] = React.useState(true);
   return (
