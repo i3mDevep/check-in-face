@@ -4,6 +4,7 @@ import { WorkerMain } from './pages/worker-main';
 import { MarkWorkerTime } from './entities/worker-timeline/components/mark-worker-time';
 import { WorkerTracerTime } from './pages/worker-tracer-time';
 import { WorkerTracerTimeDetail } from './pages/worker-tracer-time-detail';
+import { CalendarFully, CalendarProvider, layoutOptions } from './shared/components/calendar';
 
 export const router = createBrowserRouter([
   {
@@ -32,7 +33,11 @@ export const router = createBrowserRouter([
           },
           {
             path: ':identification',
-            element: <WorkerTracerTimeDetail />,
+            element:
+            <CalendarProvider allowViewPicker defaultLayout={layoutOptions.MONTH}>
+            <CalendarFully />
+            <WorkerTracerTimeDetail />
+            </CalendarProvider>
           },
         ],
       },

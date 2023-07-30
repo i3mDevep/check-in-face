@@ -39,6 +39,7 @@ specifiers:
   axios: ^1.4.0
   babel-plugin-styled-components: 1.10.7
   cypress: ^12.16.0
+  date-fns: ^2.30.0
   dayjs: ^1.11.9
   eslint: ~8.15.0
   eslint-config-prettier: 8.1.0
@@ -79,10 +80,11 @@ dependencies:
   '@mui/lab': 5.0.0-alpha.137_ucskie5rshqbrhqxlhvhlplzba
   '@mui/material': 5.14.1_t72as5nkc72wvuzlfm5pknb3h4
   '@mui/x-data-grid': 6.10.1_xzbzu4rjom73pc6w2tafgsrzuu
-  '@mui/x-date-pickers': 6.10.2_blc7segeklmpyegalv6rg3livq
+  '@mui/x-date-pickers': 6.10.2_fdo24rrwiszi4fiwayxgue6ywa
   '@swc/helpers': 0.5.1
   aws-amplify: 5.3.4_react-native@0.72.3
   axios: 1.4.0
+  date-fns: 2.30.0
   dayjs: 1.11.9
   graphql: 16.7.1
   react: 18.2.0
@@ -4567,7 +4569,7 @@ packages:
       reselect: 4.1.8
     dev: false
 
-  /@mui/x-date-pickers/6.10.2_blc7segeklmpyegalv6rg3livq:
+  /@mui/x-date-pickers/6.10.2_fdo24rrwiszi4fiwayxgue6ywa:
     resolution: {integrity: sha512-RZHvPj5UYGdV2FoBlTbtAtg1aaJ1sbdD9LM9vSgefQWMW0vFC4fSYtFACS4ptxK/8Q0FHyuVZF5bDO+TUAPxQg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -4614,6 +4616,7 @@ packages:
       '@mui/utils': 5.14.1_react@18.2.0
       '@types/react-transition-group': 4.4.6
       clsx: 1.2.1
+      date-fns: 2.30.0
       dayjs: 1.11.9
       prop-types: 15.8.1
       react: 18.2.0
@@ -8357,6 +8360,13 @@ packages:
   /date-fns/1.30.1:
     resolution: {integrity: sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==}
     dev: true
+
+  /date-fns/2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.22.6
+    dev: false
 
   /dayjs/1.11.9:
     resolution: {integrity: sha512-QvzAURSbQ0pKdIye2txOzNaHmxtUBXerpY0FJsFXUMKbIZeFm5ht1LS/jFsrncjnmtv8HsG0W2g6c0zUjZWmpA==}
