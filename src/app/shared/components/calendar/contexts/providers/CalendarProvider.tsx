@@ -43,7 +43,8 @@ export const CalendarDispatchContext = createContext<
 export const CalendarProvider: React.FC<CalendarProps> = ({
   children,
   defaultLayout,
-  allowViewPicker
+  allowViewPicker,
+  layoutOptionsAllow
 }) => {
   const [stateCalendar, setStateCalendar] = useState<StateCalendarContext>({
     ...stateDefaultValues,
@@ -76,7 +77,7 @@ export const CalendarProvider: React.FC<CalendarProps> = ({
       setMemoryLayout,
       setPrevDay
     }),
-    []
+    [changeSelectDayInView]
   );
 
   const dateHelpers = useMemo(
@@ -100,8 +101,8 @@ export const CalendarProvider: React.FC<CalendarProps> = ({
   );
 
   const aux = useMemo(
-    () => ({ memoryLayout, prevDay, allowViewPicker: !!allowViewPicker }),
-    [memoryLayout, prevDay]
+    () => ({ memoryLayout, prevDay, allowViewPicker: !!allowViewPicker, layoutOptionsAllow }),
+    [allowViewPicker, layoutOptionsAllow, memoryLayout, prevDay]
   );
 
   return (

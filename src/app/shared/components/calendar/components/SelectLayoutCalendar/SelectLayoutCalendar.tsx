@@ -4,7 +4,8 @@ import { SelectLayoutCalendarBase } from "./SelectLayoutCalendarBase";
 import { layoutOptions, useCalendarDispatch, useCalendarState } from "../../contexts";
 
 export const SelectLayoutCalendar = () => {
-  const { layout } = useCalendarState();
+  const { layout, layoutOptionsAllow } = useCalendarState();
+
   const { setStateCalendar, setMemoryLayout, setPrevDay } =
     useCalendarDispatch();
 
@@ -17,10 +18,11 @@ export const SelectLayoutCalendar = () => {
     }));
   };
 
+
   return (
     <SelectLayoutCalendarBase
       onChangeSelect={handleChange}
-      options={layoutOptions}
+      options={layoutOptionsAllow ? layoutOptionsAllow: layoutOptions}
       valueSelected={layout}
     />
   );

@@ -7,7 +7,7 @@ import { ModalWorkerCamera } from 'src/app/entities/shared/modal-worker-camera';
 
 import './override.css';
 
-const fileTypes = ['JPG', 'PNG'];
+const fileTypes = ['JPG', 'PNG', 'JPEG'];
 
 export interface UploadImagesProps {
   onCaptureImageUrl: (img: string | null | undefined) => void;

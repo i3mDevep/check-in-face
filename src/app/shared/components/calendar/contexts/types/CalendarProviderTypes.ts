@@ -16,12 +16,14 @@ export type StateCalendarContext = {
   layout: layoutOptions;
   memoryLayout: layoutOptions | undefined;
   prevDay: Date | undefined;
+  layoutOptionsAllow?: layoutOptions[]
 };
 
 export interface CalendarProps {
   children: ReactNode;
   allowViewPicker?: boolean;
   defaultLayout?: layoutOptions;
+  layoutOptionsAllow?: layoutOptions[]
 }
 
 export type DispatchCalendarContext = {

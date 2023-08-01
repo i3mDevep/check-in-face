@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import { Stack, Box, AppBar, Toolbar, Typography } from '@mui/material';
+import { Stack, Box, AppBar, Toolbar } from '@mui/material';
 import { SidebarV2 } from '../sidebar';
+import { CustomizedBreadcrumbs } from '../breadcrumbs';
 
 export const MainLayout = () => {
   return (
-    <Stack flexDirection="initial" height="100vh">
+    <Stack flexDirection="initial" minHeight='100vh'>
       <Box
         component="nav"
         sx={{
@@ -25,7 +26,7 @@ export const MainLayout = () => {
           enableColorOnDark
         >
           <Toolbar>
-            <Typography>Worker application tracer</Typography>
+            <CustomizedBreadcrumbs />
           </Toolbar>
         </AppBar>
         <Outlet />

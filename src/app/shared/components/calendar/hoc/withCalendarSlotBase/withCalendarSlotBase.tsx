@@ -25,7 +25,7 @@ export const withCalendarSlotBase =
     const resourcesPerDay = useMemo(
       () =>
         resourceList.filter((sd) => convertDayjs(sd.date).isSame(normalizeDay)),
-      [day, resourceList]
+      [normalizeDay, resourceList]
     );
 
     return (
