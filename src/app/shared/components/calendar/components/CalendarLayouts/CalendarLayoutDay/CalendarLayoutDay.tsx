@@ -3,11 +3,7 @@ import Grid from '@mui/material/Grid';
 import dayjs from 'dayjs';
 import { CalendarSlots } from '../../../types/calendar';
 import { useCalendarState } from '../../../contexts';
-
-function generateHourList(): string[] {
-  const hours = Array.from({ length: 24 }, (_, hour) => hour.toString());
-  return hours;
-}
+import { generateHourList } from 'src/app/utils/generate-hours';
 
 export const CalendarLayoutDayBase = <S,>({
   day,

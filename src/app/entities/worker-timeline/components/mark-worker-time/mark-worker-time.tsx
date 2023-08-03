@@ -108,6 +108,7 @@ export function MarkWorkerTime() {
         </Alert>
       </Snackbar>
       <ModalWorkerCamera
+        hiddenAlert
         ref={webcamRef}
         open={openModalMarkTime}
         capturePicture={capture}

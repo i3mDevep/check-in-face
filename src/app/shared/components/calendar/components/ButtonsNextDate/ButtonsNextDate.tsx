@@ -2,6 +2,8 @@ import { Tooltip } from "@mui/material";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { addDays, addMonths, addWeeks, addYears } from "date-fns";
 import dayjs from "dayjs";
 
@@ -37,7 +39,7 @@ export const ButtonsNextDateBase: React.FC<ButtonsNextDateProps> = ({
     >
       <Tooltip arrow placement="top" title={`Previous ${mode}`}>
         <IconButton onClick={() => handlerActions[mode](-1)}>
-          {/* <NavigateBeforeIcon /> */}
+          <NavigateBeforeIcon />
         </IconButton>
       </Tooltip>
       <Typography variant="h6">
@@ -45,7 +47,7 @@ export const ButtonsNextDateBase: React.FC<ButtonsNextDateProps> = ({
       </Typography>
       <Tooltip arrow placement="top" title={`Next ${mode}`}>
         <IconButton onClick={() => handlerActions[mode](1)}>
-          {/* <NavigateNextIcon /> */}
+          <NavigateNextIcon />
         </IconButton>
       </Tooltip>
     </Box>

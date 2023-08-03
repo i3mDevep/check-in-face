@@ -30,6 +30,8 @@ export interface WorkerMarkTimeQuery {
   year: string;
   month: string;
   day?: string | null;
+  limit?: number;
+  reverse?: boolean;
 }
 
 //==============================================================

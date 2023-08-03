@@ -16,6 +16,8 @@ export const TracerTimeReason = ({
           key={key}
           onClick={() => onClick(reason)}
           label={reason}
+          sx={{ margin: '0px !important' }}
+          color='primary'
           {...(selected !== reason && { variant: 'outlined' })}
         />
       ))}

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Alert, DialogActions, Skeleton, SxProps } from '@mui/material';
+import { Alert, Box, DialogActions, Skeleton, SxProps } from '@mui/material';
 import Webcam from 'react-webcam';
 import { DialogBase } from 'src/app/shared/components/dialog-base';
 
@@ -12,6 +12,7 @@ export interface ModalWorkerCameraProps {
   disabledCapture?: boolean;
   slots?: { dialogActionComponent?: JSX.Element };
   loadingButtonSx?: SxProps;
+  hiddenAlert?: boolean;
 }
 
 export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
@@ -24,6 +25,7 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
       disabledCapture,
       slots,
       loadingButtonSx,
+      hiddenAlert,
     },
     webcamRef
   ) => {
@@ -57,7 +59,10 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
           </DialogActions>
         }
       >
-        <Alert severity="info">try to be only you in the image</Alert>
+        {!hiddenAlert && (
+          <Alert severity="info">try to be only you in the image</Alert>
+        )}
+        <Box position='relative'>
         <Webcam
           audio={false}
           mirrored={true}
@@ -66,13 +71,16 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
+          style={{ objectFit: 'cover' }}
         />
         <Skeleton
-          sx={{ position: 'absolute', top: 105 }}
+          sx={{ position: 'absolute', top: 0 }}
           variant="rectangular"
           width={300}
-          height={220}
+          height={300}
         />
+        </Box>
+
       </DialogBase>
     );
   }

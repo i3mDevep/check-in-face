@@ -12,11 +12,19 @@ type IntervalsTypes = {
   start: Date;
   end: Date;
   minutes: number;
+  minutesFormatter: { hours: number; minutes: number };
   position: {
     top: number;
     height: number;
   };
 };
+
+function toHoursAndMinutes(totalMinutes: number) {
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  return { hours, minutes };
+}
 
 const calculatePercentage = (end: Date, start: Date) =>
   (differenceInMinutes(end, start) / totalMinutesForDay) * 100;
@@ -26,10 +34,12 @@ const calculateIntervalItem = (
   end: Date,
   calculateTop: (start: Date) => number
 ): IntervalsTypes => {
+  const minutes = differenceInMinutes(end, start);
   return {
     start,
     end,
-    minutes: differenceInMinutes(end, start),
+    minutes,
+    minutesFormatter: toHoursAndMinutes(minutes),
     position: {
       top: calculateTop(start),
       height: calculatePercentage(end, start),
@@ -46,7 +56,7 @@ export const useSlotPositionWithDate = (
     PropsBase
   >['resourceList']
 ) => {
-  return useMemo(() => {
+  const intervals = useMemo(() => {
     const filterResource = resourceList
       .filter((resourceItem) => resourceItem.dateRegister)
       .sort(
@@ -90,15 +100,17 @@ export const useSlotPositionWithDate = (
 
       positionsReady.push(index);
       positionsReady.push(index + 1);
-
+      
       result.push(
         calculateIntervalItem(
           resourceDateRegisterDate,
-          new Date(filterResource[index + 1].dateRegister as string),
+          new Date(filterResource?.[index + 1]?.dateRegister as string),
           calculateTop
         )
       );
     });
     return result;
   }, [resourceList]);
+
+  return { intervals }
 };

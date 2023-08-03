@@ -43,6 +43,7 @@ export const UploadImages = ({ onCaptureImageUrl }: UploadImagesProps) => {
         handleChange={handleChangeInputFile}
       />
       <ModalWorkerCamera
+        hiddenAlert
         ref={webcamRef}
         open={modalCamera}
         onClose={handleCloseModalCamera}
