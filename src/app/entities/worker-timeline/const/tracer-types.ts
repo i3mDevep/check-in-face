@@ -10,8 +10,8 @@ export enum TRACER_REASON {
 export const typeWithTracerReason = {
   [TRACER_REASON.START_ANY_REASON]: 'in',
   [TRACER_REASON.START_WORK]: 'in',
-  [TRACER_REASON.START_LUNCH]: 'in',
-  [TRACER_REASON.END_LUNCH]: 'out',
+  [TRACER_REASON.START_LUNCH]: 'out',
+  [TRACER_REASON.END_LUNCH]: 'in',
   [TRACER_REASON.END_WORK]: 'out',
   [TRACER_REASON.END_ANY_REASON]: 'out',
 };

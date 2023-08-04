@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { SlotDay } from 'src/app/entities/worker-timeline/components/slot-day';
 import {
   CalendarFully,
@@ -5,8 +6,9 @@ import {
   useCalendarState,
 } from 'src/app/shared/components/calendar';
 import { useGraphqlMarkTimeWorker } from '../../hooks/useGraphqlMarkTimeWorker';
-import { useEffect, useMemo } from 'react';
-import { getMonth, getWeek } from 'date-fns';
+import { useCallback, useEffect, useMemo } from 'react';
+import { GetListWorkerMarkTime_getListWorkerMarkTime } from 'src/graphql/queries/__generated__/GetListWorkerMarkTime';
+import { getWeek } from 'date-fns';
 
 export const TracerTimeWorkerCalendar = ({
   identification,
@@ -14,76 +16,99 @@ export const TracerTimeWorkerCalendar = ({
   identification: string;
 }) => {
   const { selectedDate, layout, daysInWeek } = useCalendarState();
-  const { resultMarkTimeWorker } = useGraphqlMarkTimeWorker({
-    query: {
-      identification,
-      year: selectedDate.getFullYear().toString(),
-      month: selectedDate.getMonth().toString(),
-      day:
-        layout === layoutOptions.DAY
-          ? selectedDate.getDate().toString()
-          : undefined,
-    },
-  });
+  const {
+    lazyQuery: [getMarkTimeWorker, { data, fetchMore }],
+  } = useGraphqlMarkTimeWorker();
 
-  useEffect(() => {
-    if (layout === layoutOptions.DAY) {
-      return;
-    }
+  const numberWeek = useMemo(() => getWeek(selectedDate), [selectedDate]);
 
-    const [month] = Array.from(
-      new Set(
-        daysInWeek
-          .map((day) => day.getMonth())
-          .filter((day) => day !== selectedDate.getMonth())
-      )
-    );
-    const [year] = Array.from(
-      new Set(
-        daysInWeek
-          .map((day) => day.getFullYear())
-          .filter((day) => day !== selectedDate.getFullYear())
-      )
-    );
+  const infoDate = useMemo(() => {
+    const year = selectedDate.getFullYear().toString();
+    const month = selectedDate.getMonth().toString();
+    const day = selectedDate.getDate().toString();
+    return { year, month, day };
+  }, [selectedDate]);
+
+  const fetchMoreMarkTimeWorker = useCallback(async () => {
+    const uniqueMonths = Array.from(
+      new Set(daysInWeek.map((day) => day.getMonth()))
+    ).filter((month) => month !== selectedDate.getMonth());
+
+    const uniqueYears = Array.from(
+      new Set(daysInWeek.map((day) => day.getFullYear()))
+    ).filter((year) => year !== selectedDate.getFullYear());
+
+    const [month] = uniqueMonths;
+    const [year] = uniqueYears;
 
     if (!month) return;
 
-    resultMarkTimeWorker.client.cache.restore({});
-    resultMarkTimeWorker.fetchMore({
+    return fetchMore({
       variables: {
         query: {
           day: undefined,
           month: month.toString(),
-          limit: 5,
+          limit: 20,
           identification,
-          reverse: month < selectedDate.getMonth(),
-          year: year ?? selectedDate.getFullYear().toString(),
+          reverse: Number(month) < Number(infoDate.month),
+          year: year ?? infoDate.year,
         },
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
+        const map = new Map<
+          string,
+          GetListWorkerMarkTime_getListWorkerMarkTime
+        >();
         if (!fetchMoreResult) {
           return previousResult;
         }
 
-        const previousEdges = previousResult.getListWorkerMarkTime;
-        const fetchMoreEdges = fetchMoreResult.getListWorkerMarkTime;
+        const previousEdges = previousResult.getListWorkerMarkTime ?? [];
+        const fetchMoreEdges = fetchMoreResult.getListWorkerMarkTime ?? [];
 
         fetchMoreResult.getListWorkerMarkTime = [
           ...previousEdges,
           ...fetchMoreEdges,
         ];
-        return { ...fetchMoreResult };
+
+        fetchMoreResult.getListWorkerMarkTime.map((result) =>
+          map.set(result.picture as string, { ...result })
+        );
+
+        return { getListWorkerMarkTime: Array.from(map.values()) ?? [] };
       },
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [layout]);
+  }, [fetchMore, identification, numberWeek]);
+
+  useEffect(() => {
+    (async () => {
+      await getMarkTimeWorker({
+        variables: {
+          query: {
+            identification,
+            month: infoDate.month,
+            year: infoDate.year,
+            ...(layout === layoutOptions.DAY && { day: infoDate.day }),
+          },
+        },
+      });
+      if (layout === layoutOptions.DAY) return;
+      await fetchMoreMarkTimeWorker();
+    })();
+  }, [
+    getMarkTimeWorker,
+    identification,
+    numberWeek,
+    layout,
+    fetchMoreMarkTimeWorker,
+  ]);
 
   const resourceListDto = useMemo(
     () =>
-      resultMarkTimeWorker.data?.getListWorkerMarkTime.flatMap((time) =>
+      data?.getListWorkerMarkTime.flatMap((time) =>
         time.dateRegister ? { ...time, date: new Date(time.dateRegister) } : []
       ),
-    [resultMarkTimeWorker]
+    [data]
   );
 
   return (

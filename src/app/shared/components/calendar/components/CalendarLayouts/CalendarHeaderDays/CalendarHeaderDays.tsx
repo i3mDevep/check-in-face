@@ -25,6 +25,8 @@ export const CalendarHeaderDays: React.FC = () => {
       direction="row"
       justifyItems="center"
       alignItems="center"
+      marginLeft={20}
+      width='calc(100% - 20px)'
     >
       {days.map((day: Date, index: number) => {
         return (

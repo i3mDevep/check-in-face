@@ -19,7 +19,7 @@ export const DaysWeekBoard = <S,>({
   const theme = useTheme();
 
   return (
-    <Stack direction="row">
+    <Stack marginLeft={5} direction="row">
       <Stack
         display="grid"
         gridTemplateColumns="1fr"
