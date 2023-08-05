@@ -23,14 +23,14 @@ const stateDefaultValues = {
   daysInWeek: [],
   layout: layoutOptions.YEAR,
   memoryLayout: undefined,
-  prevDay: undefined
+  prevDay: undefined,
 };
 
 const dispatchDefaultValues = {
   setStateCalendar: () => undefined,
   setMemoryLayout: () => undefined,
   setPrevDay: () => undefined,
-  changeSelectDayInView: () => null
+  changeSelectDayInView: () => null,
 };
 
 export const CalendarStateContext =
@@ -75,7 +75,7 @@ export const CalendarProvider: React.FC<CalendarProps> = ({
       changeSelectDayInView,
       setStateCalendar,
       setMemoryLayout,
-      setPrevDay
+      setPrevDay,
     }),
     [changeSelectDayInView]
   );
@@ -95,7 +95,7 @@ export const CalendarProvider: React.FC<CalendarProps> = ({
   const state = useMemo(
     () => ({
       ...stateCalendar,
-      ...dateHelpers
+      ...dateHelpers,
     }),
     [stateCalendar, dateHelpers]
   );

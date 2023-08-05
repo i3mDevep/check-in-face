@@ -34,7 +34,8 @@
     "react-webcam": "^7.1.1",
     "styled-components": "5.3.6",
     "tinycolor2": "^1.6.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@nx/cypress": "16.5.1",

@@ -1,14 +1,10 @@
 import { useMemo } from 'react';
 import { differenceInMinutes, endOfDay, isToday, startOfDay } from 'date-fns';
-import {
-  CalendarSlotBaseProps,
-  PropsBase,
-} from 'src/app/shared/components/calendar';
 import { GetListWorkerMarkTime_getListWorkerMarkTime } from 'src/graphql/queries/__generated__/GetListWorkerMarkTime';
 
 const totalMinutesForDay = 60 * 24;
 
-type IntervalsTypes = {
+export type IntervalsTypes = {
   start: Date;
   end: Date;
   minutes: number;
@@ -19,7 +15,7 @@ type IntervalsTypes = {
   };
 };
 
-function toHoursAndMinutes(totalMinutes: number) {
+export function toHoursAndMinutes(totalMinutes: number) {
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
 
@@ -50,11 +46,8 @@ const calculateIntervalItem = (
 const calculateTop = (start: Date) =>
   calculatePercentage(start, startOfDay(start));
 
-export const useSlotPositionWithDate = (
-  resourceList: CalendarSlotBaseProps<
-    GetListWorkerMarkTime_getListWorkerMarkTime,
-    PropsBase
-  >['resourceList']
+export const useCalculateIntervalsWithDate = (
+  resourceList: GetListWorkerMarkTime_getListWorkerMarkTime[]
 ) => {
   const intervals = useMemo(() => {
     const filterResource = resourceList

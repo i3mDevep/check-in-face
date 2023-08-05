@@ -12,7 +12,7 @@ export const CalendarIndicatorBase: React.FC<CalendarIndicatorBaseProps> = ({
   const theme = useTheme();
 
   return (
-    <Stack direction="row" justifyContent="space-between">
+    <Stack direction="row" margin={10} justifyContent="space-between">
       <Stack
         direction="row"
         justifyContent="space-between"

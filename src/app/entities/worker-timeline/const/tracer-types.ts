@@ -7,6 +7,16 @@ export enum TRACER_REASON {
   END_ANY_REASON = 'end any reason',
 }
 
+export enum TRACER_REASON_MANUAL {
+  START_WORK_MANUAL = 'start work - manual',
+  END_WORK_MANUAL = 'end work - manual',
+}
+
+export const typeWithTracerReasonManual = {
+  [TRACER_REASON_MANUAL.END_WORK_MANUAL]: 'out',
+  [TRACER_REASON_MANUAL.START_WORK_MANUAL]: 'in',
+};
+
 export const typeWithTracerReason = {
   [TRACER_REASON.START_ANY_REASON]: 'in',
   [TRACER_REASON.START_WORK]: 'in',

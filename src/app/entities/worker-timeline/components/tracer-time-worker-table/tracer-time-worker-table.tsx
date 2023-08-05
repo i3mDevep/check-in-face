@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import { GetListWorkerMarkTime_getListWorkerMarkTime } from 'src/graphql/queries/__generated__/GetListWorkerMarkTime';
 import { useGraphqlMarkTimeWorker } from '../../hooks/useGraphqlMarkTimeWorker';
 import { Avatar, Chip } from '@mui/material';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FilterDateMarkTracerWorker } from './filter-data-tracer-time';
 
 interface CustomToolbarProps {
@@ -89,7 +89,7 @@ const columns: GridColDef<GetListWorkerMarkTime_getListWorkerMarkTime>[] = [
     field: 'reason',
     filterable: false,
     headerName: 'Reason',
-    width: 150,
+    width: 200,
     renderCell: (params) => (
       <Chip label={params.row.reason} variant="outlined" />
     ),
@@ -118,11 +118,13 @@ const defaultStringFilter = {
   day: String(defaultFilterCalendar.day),
 };
 
-export function TracerTimeWorkerTable({
+export const TracerTimeWorkerTable = ({
   identification,
+  onResultMarkTime
 }: {
   identification: string;
-}) {
+  onResultMarkTime: (data: GetListWorkerMarkTime_getListWorkerMarkTime[] | undefined) => void
+})  =>{
   const [filterApplied, setFilterApplied] = useState<GridFilterModel | null>(
     null
   );
@@ -157,8 +159,12 @@ export function TracerTimeWorkerTable({
     },
   });
 
+  useEffect(() => {
+    onResultMarkTime(resultMarkTimeWorker.data?.getListWorkerMarkTime)
+  }, [onResultMarkTime, resultMarkTimeWorker.data])
+
   return (
-    <Box sx={{ height: '100%', maxHeight: '85vh', width: '100%' }}>
+    <Box sx={{ height: '100%', maxHeight: '75vh', width: '100%' }}>
       <DataGrid
         sx={{ '&.MuiDataGrid-root': { borderRadius: 10 } }}
         slots={{ toolbar: CustomToolbar }}

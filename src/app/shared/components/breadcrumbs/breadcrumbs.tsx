@@ -40,6 +40,7 @@ export function CustomizedBreadcrumbs() {
           const to = `/app/${pathnames.slice(0, index + 1).join('/')}`;
           return (
             <StyledBreadcrumb
+              key={to}
               component="button"
               label={breadcrumbNameMap?.[to] ?? breadcrumbRoute}
               onClick={() => handleOnClick(to)}

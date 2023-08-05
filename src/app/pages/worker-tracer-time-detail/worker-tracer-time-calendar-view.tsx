@@ -9,7 +9,7 @@ export const WorkerTracerTimeCalendarView = () => {
   const { identification } = useParams();
 
   if (!identification) return;
-  
+
   return (
     <CalendarProvider
       allowViewPicker

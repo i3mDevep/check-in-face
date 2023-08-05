@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { SlotDay } from 'src/app/entities/worker-timeline/components/slot-day';
 import {
   CalendarFully,
@@ -78,9 +77,12 @@ export const TracerTimeWorkerCalendar = ({
         return { getListWorkerMarkTime: Array.from(map.values()) ?? [] };
       },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchMore, identification, numberWeek]);
 
   useEffect(() => {
+    if (layout === layoutOptions.DAY) return;
+
     (async () => {
       await getMarkTimeWorker({
         variables: {
@@ -88,13 +90,12 @@ export const TracerTimeWorkerCalendar = ({
             identification,
             month: infoDate.month,
             year: infoDate.year,
-            ...(layout === layoutOptions.DAY && { day: infoDate.day }),
           },
         },
       });
-      if (layout === layoutOptions.DAY) return;
       await fetchMoreMarkTimeWorker();
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     getMarkTimeWorker,
     identification,
@@ -102,6 +103,23 @@ export const TracerTimeWorkerCalendar = ({
     layout,
     fetchMoreMarkTimeWorker,
   ]);
+
+  useEffect(() => {
+    (async () => {
+      if (layout !== layoutOptions.DAY) return;
+
+      await getMarkTimeWorker({
+        variables: {
+          query: {
+            identification,
+            month: infoDate.month,
+            year: infoDate.year,
+            day: infoDate.day,
+          },
+        },
+      });
+    })();
+  }, [infoDate, layout, getMarkTimeWorker, identification]);
 
   const resourceListDto = useMemo(
     () =>
