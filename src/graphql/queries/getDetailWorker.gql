@@ -1,0 +1,10 @@
+query GetDetailWorker($identification: ID!) {
+  getDetailWorker(identification: $identification) {
+    fullName
+    identification
+    created
+    modified
+    entity
+    profilePath
+  }
+}

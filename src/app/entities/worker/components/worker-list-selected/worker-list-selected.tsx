@@ -7,6 +7,8 @@ import Avatar from '@mui/material/Avatar';
 import { useGraphqlWorker } from '../../hooks/useGraphqlWorker';
 import { ListSubheader } from '@mui/material';
 
+const { VITE_CDN_IMAGES_WORKER } = import.meta.env;
+
 export function WorkerListSelected({
   onClickItem,
 }: {
@@ -36,7 +38,14 @@ export function WorkerListSelected({
           >
             <ListItemButton>
               <ListItemAvatar>
-                <Avatar alt={identification} src={profilePath as string ?? "https://cdn-icons-png.flaticon.com/512/5556/5556512.png"} />
+                <Avatar
+                  alt={identification}
+                  src={
+                    profilePath
+                      ? `${VITE_CDN_IMAGES_WORKER}/${profilePath}`
+                      : 'https://cdn-icons-png.flaticon.com/512/5556/5556512.png'
+                  }
+                />
               </ListItemAvatar>
               <ListItemText
                 id={labelId}

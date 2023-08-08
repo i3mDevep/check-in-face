@@ -21,6 +21,7 @@ import { useCalculateIntervalsWithDate } from 'src/app/entities/worker-timeline/
 
 import { CardAnalytics } from 'src/app/shared/components/card-analytics';
 import { ModalCreateTimestamp } from 'src/app/entities/worker-timeline/components/create-manual-timestamp';
+import { WorkerCardInfo } from 'src/app/entities/worker/components/worker-card-info';
 
 export const WorkerTracerTimeDetail = () => {
   const [resultQueryMark, setResultQueryMark] = useState<
@@ -73,6 +74,7 @@ export const WorkerTracerTimeDetail = () => {
       <Stack direction="row">
         {value === '1' && (
           <>
+            <WorkerCardInfo identification={identification} />
             <CardAnalytics
               icon={<TimelapseIcon />}
               title="Hours worked"

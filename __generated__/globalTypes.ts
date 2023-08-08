@@ -17,12 +17,14 @@ export interface MarkRecordWorkerInput {
   imageKey: string;
   reason: string;
   type: string;
+  force?: boolean
 }
 
 export interface WorkerInput {
-  fullName: string;
+  fullName?: string;
   identification: string;
   profilePath?: string | null;
+  isPatch?: boolean;
 }
 
 export interface WorkerMarkTimeQuery {

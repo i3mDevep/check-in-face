@@ -90,7 +90,7 @@ export function SidebarV2() {
               />
             </ListItemButton>
             <Divider />
-            <ListItem component="div" disablePadding>
+            {/* <ListItem component="div" disablePadding>
               <ListItemButton sx={{ height: 56 }}>
                 <ListItemIcon>
                   <ManageAccountsIcon color="primary" />
@@ -140,7 +140,7 @@ export function SidebarV2() {
                   />
                 </IconButton>
               </Tooltip>
-            </ListItem>
+            </ListItem> */}
             <Divider />
             <Box
               sx={{

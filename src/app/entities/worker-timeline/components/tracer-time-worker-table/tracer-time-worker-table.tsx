@@ -40,7 +40,7 @@ const columns: GridColDef<GetListWorkerMarkTime_getListWorkerMarkTime>[] = [
     renderCell: (params) => (
       <Avatar
         alt={params.value}
-        src={`${VITE_CDN_IMAGES_WORKER}/${params.value}`}
+        src={params.value ? `${VITE_CDN_IMAGES_WORKER}/${params.value}`: 'https://w7.pngwing.com/pngs/849/29/png-transparent-anonymous-guy-fawkes-mask-gunpowder-plot-anonymous-mask-guy-faux-mask-illustration-face-people-head-thumbnail.png'}
       />
     ),
   },
@@ -164,7 +164,7 @@ export const TracerTimeWorkerTable = ({
   }, [onResultMarkTime, resultMarkTimeWorker.data])
 
   return (
-    <Box sx={{ height: '100%', maxHeight: '75vh', width: '100%' }}>
+    <Box sx={{ height: '100%', maxHeight: '70vh', width: '100%' }}>
       <DataGrid
         sx={{ '&.MuiDataGrid-root': { borderRadius: 10 } }}
         slots={{ toolbar: CustomToolbar }}

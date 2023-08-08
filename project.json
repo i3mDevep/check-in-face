@@ -41,7 +41,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "pnpm apollo service:download --endpoint=https://oe5p6maoovfzjdfd7kxva7ali4.appsync-api.us-east-1.amazonaws.com/graphql graphql-schema.json --header=\"x-api-key: da2-lxzdk2xghzevrpfhpne5nu3nse\"",
+          "pnpm apollo service:download --endpoint=https://oe5p6maoovfzjdfd7kxva7ali4.appsync-api.us-east-1.amazonaws.com/graphql graphql-schema.json --header=\"x-api-key: da2-tcnfrs6anvbkfk3nboytmsa4u4\"",
           "pnpm apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql"
         ]
       }

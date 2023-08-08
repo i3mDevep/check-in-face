@@ -1,7 +1,3 @@
 mutation CreateWorker($props: WorkerInput!) {
-  putWorker(props: $props) {
-    fullName
-    identification
-    profilePath
-  }
+  putWorker(props: $props)
 }

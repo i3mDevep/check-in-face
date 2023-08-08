@@ -3,12 +3,11 @@ import { DialogBase } from 'src/app/shared/components/dialog-base';
 import {
   Alert,
   AlertProps,
+  Button,
   Chip,
-  IconButton,
   Snackbar,
   Stack,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import { TimeClock } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import {
@@ -17,7 +16,6 @@ import {
 } from '../../const/tracer-types';
 import { useGraphqlMarkTimeWorker } from '../../hooks/useGraphqlMarkTimeWorker';
 import { LoadingButton } from '@mui/lab';
-import { useGraphqlWorkerImages } from 'src/app/entities/worker-images/hooks/useGraphqlWorkerImages';
 
 export function ModalCreateTimestamp({
   identification,
@@ -35,11 +33,6 @@ export function ModalCreateTimestamp({
   const {
     mutationMarkTimeWorker: [markTimeWorker, { loading: loadingMutationMark }],
   } = useGraphqlMarkTimeWorker();
-  const { resultGetWorkerImages } = useGraphqlWorkerImages(identification);
-  console.log(
-    '🚀 ~ file: create-manual-timestamp.tsx:24 ~ ModalCreateTimestamp ~ resultGetWorkerImages:',
-    resultGetWorkerImages
-  );
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -62,18 +55,13 @@ export function ModalCreateTimestamp({
 
   const handleRegisterTimestamp = async () => {
     try {
-      if (
-        !reason ||
-        !value ||
-        !resultGetWorkerImages?.data?.getWorkerImages?.[0]
-      )
-        return;
+      if (!reason || !value) return;
       const result = await markTimeWorker({
         variables: {
           props: {
             dateRegister: value.toISOString(),
-            imageKey: resultGetWorkerImages?.data?.getWorkerImages?.[0]
-              .pathFaceInCollection as string,
+            force: true,
+            imageKey: identification,
             reason,
             type: typeWithTracerReasonManual[reason as TRACER_REASON_MANUAL],
           },
@@ -95,14 +83,9 @@ export function ModalCreateTimestamp({
 
   return (
     <>
-      <IconButton
-        onClick={handleClickOpen}
-        sx={{ margin: 'auto 0' }}
-        color="primary"
-        title="Create timestamp"
-      >
-        <AddIcon />
-      </IconButton>
+      <Button variant='outlined' onClick={handleClickOpen} sx={{ margin: 10 }}>
+        Create timestamp
+      </Button>
       <Snackbar
         open={!!messageSnackbar}
         autoHideDuration={6000}
@@ -146,7 +129,7 @@ export function ModalCreateTimestamp({
             onClick={handleRegisterTimestamp}
             disabled={!reason}
           >
-            Create
+            Save
           </LoadingButton>
         </Stack>
       </DialogBase>

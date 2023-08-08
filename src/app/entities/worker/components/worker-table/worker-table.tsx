@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import { Avatar } from '@mui/material';
 import {
   DataGrid,
   GridActionsCellItem,
@@ -14,6 +13,9 @@ import { useGraphqlWorker } from '../../hooks/useGraphqlWorker';
 import { GetListWorker_getListWorker } from 'src/graphql/queries/__generated__/GetListWorker';
 import { useIdentificationDispatch } from 'src/app/shared/provider/identification-provider';
 import { SelectedActionType } from 'src/app/shared/provider/identification-provider/state';
+import { AvatarProfileWorker } from '../avatar-profile-worker';
+
+const { VITE_CDN_IMAGES_WORKER } = import.meta.env;
 
 const AttachmentImages = (
   params: GridRowParams<GetListWorker_getListWorker>
@@ -34,7 +36,16 @@ const columns: GridColDef<GetListWorker_getListWorker>[] = [
   {
     field: 'profilePath',
     headerName: 'Profile',
-    renderCell: (params) => <Avatar alt={params.value} src={params.value ?? 'https://cdn-icons-png.flaticon.com/512/5556/5556512.png'} />,
+    renderCell: (params) => (
+      <AvatarProfileWorker
+        identification={params.id.toString()}
+        src={
+          params.row.profilePath
+            ? `${VITE_CDN_IMAGES_WORKER}/${params.row.profilePath}`
+            : 'https://cdn-icons-png.flaticon.com/512/5556/5556512.png'
+        }
+      />
+    ),
   },
   { field: 'identification', headerName: 'Identification', width: 120 },
   {
@@ -71,7 +82,7 @@ export function WorkerTable() {
   return (
     <Box sx={{ height: 400, width: '100%' }}>
       <DataGrid
-        sx={{ '&.MuiDataGrid-root': { borderRadius: 10 }}}
+        sx={{ '&.MuiDataGrid-root': { borderRadius: 10 } }}
         getRowId={(row) => row.identification}
         rows={data?.getListWorker ?? []}
         columns={columns}
