@@ -1,10 +1,11 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
+const { VITE_API_URL, VITE_API_KEY } = import.meta.env;
 
 
 export const client = new ApolloClient({
-  uri: 'https://oe5p6maoovfzjdfd7kxva7ali4.appsync-api.us-east-1.amazonaws.com/graphql',
+  uri: VITE_API_URL,
   headers: {
-    'x-api-key': 'da2-tcnfrs6anvbkfk3nboytmsa4u4'
+    'x-api-key': VITE_API_KEY
   },
   cache: new InMemoryCache(),
 });

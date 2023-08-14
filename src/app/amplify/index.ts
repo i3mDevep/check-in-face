@@ -4,13 +4,15 @@ import {
   AmazonAIPredictionsProvider,
 } from '@aws-amplify/predictions';
 
+const { VITE_IDENTITY_POOL_ID, VITE_BUCKET_IMAGES_WORKER } = import.meta.env;
+
 Amplify.configure({
   Auth: {
-    identityPoolId: 'us-east-1:49c25012-178b-47ad-b350-f6ee17ea0deb',
+    identityPoolId: VITE_IDENTITY_POOL_ID,
     region: 'us-east-1',
   },
   Storage: {
-    bucket: 'image-workers-dev',
+    bucket: VITE_BUCKET_IMAGES_WORKER,
     region: 'us-east-1',
   },
   predictions: {
@@ -27,5 +29,7 @@ Amplify.configure({
     },
   },
 });
+
+// Predictions is optional, because we are working with this in backend, only is here for show how it would be the integration in frontend
 
 Predictions.addPluggable(new AmazonAIPredictionsProvider());
