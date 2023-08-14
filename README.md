@@ -18,8 +18,8 @@ The frontend of the Employee Time Tracking application provides a user interface
 ## Getting Started
 
 1. Clone the repository to your local machine.
-2. Navigate to the frontend directory (`/path/to/frontend`) using your terminal.
-3. Set up environment variables by creating a `.env` file in the root directory of the frontend. Refer to the backend README for the required values.
+2. Navigate to the frontend directory.
+3. Set up environment variables by creating a `.env` file in the root directory of the frontend. Refer to the backend https://github.com/i3mDevep/check-in-face-backend/tree/main README for the required values.
 4. Start the development server using `pnpm start`.
 
 ## Environment Variables
