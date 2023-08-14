@@ -35,6 +35,7 @@ export const FormCreateWorker = ({
     <Stack
       onSubmit={handleSubmit(onSubmit)}
       component="form"
+      data-cy='form-container-create-worker'
       gap={20}
       maxWidth={500}
     >

@@ -2,6 +2,8 @@ import { defineConfig } from 'cypress';
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset';
 
 export default defineConfig({
+  viewportHeight: 660, 
+  viewportWidth: 1400,
   e2e: nxE2EPreset(__dirname, {
     bundler: 'vite',
   }),

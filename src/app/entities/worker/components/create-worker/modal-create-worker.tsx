@@ -21,6 +21,7 @@ export function ModalCreateWorker() {
         onClick={handleClickOpen}
         sx={{ maxWidth: 200, marginLeft: 'auto' }}
         color="primary"
+        data-cy = 'button-create-worker'
         aria-label="add to shopping cart"
       >
         <AddIcon />
