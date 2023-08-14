@@ -6,6 +6,15 @@ This project is the frontend part of the Employee Time Tracking application, whi
 
 The frontend of the Employee Time Tracking application provides a user interface for employees to interact with the system. Employees can easily clock in and out using facial recognition and view their time records.
 
+You can create workers and associate images to them, so Amazon Rekognition can identify the face of each worker
+
+![create worker](https://github.com/i3mDevep/check-in-face/blob/main/src/assets/01-worker-create.gif)
+
+Here you can see how the algorithm is already able to identify whose face it is
+
+![rekog worker](https://github.com/i3mDevep/check-in-face/blob/main/src/assets/02-worker-recog.gif)
+
+
 ## Features
 
 - **Facial Recognition**: Employees can use facial recognition to clock in and out.
