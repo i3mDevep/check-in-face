@@ -14,6 +14,12 @@ Here you can see how the algorithm is already able to identify whose face it is
 
 ![rekog worker](https://github.com/i3mDevep/check-in-face/blob/main/src/assets/02-worker-recog.gif)
 
+On this page you can see each of the records made by each worker, you can filter by date and you also have a calendar view
+
+![tracer worker](https://github.com/i3mDevep/check-in-face/blob/main/src/assets/03-worker-time.gif)
+
+![tracer worker calendar](https://github.com/i3mDevep/check-in-face/blob/main/src/assets/04-worker-time-calendar.gif)
+
 
 ## Features
 
