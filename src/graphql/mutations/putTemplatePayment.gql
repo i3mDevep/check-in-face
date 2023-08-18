@@ -1,0 +1,3 @@
+mutation PutTemplatePayment($props: TemplatePaymentInput!) {
+  putTemplatePayment(props: $props)
+}

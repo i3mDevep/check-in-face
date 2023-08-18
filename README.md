@@ -32,6 +32,9 @@ Ensure you have the following environment variables set in the `.env` file:
 - `VITE_IDENTITY_POOL_ID`: Amazon Cognito Identity Pool ID.
 - `VITE_BUCKET_IMAGES_WORKER`: Name of the Amazon S3 bucket for worker images.
 
+## Generate types
+npx graphql-code-generator init
+
 ## Running Tests
 
 To run end-to-end tests using Cypress, use the following command:

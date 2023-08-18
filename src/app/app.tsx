@@ -1,9 +1,14 @@
-import { Navigate, createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+
 import { MainLayout } from './shared/components/main-layout';
 import { WorkerMain } from './pages/worker-main';
+
+import { WorkerTracerTime } from './pages/worker-tracer-time/list';
+import { WorkerTracerTimeDetail } from './pages/worker-tracer-time/detail';
+
 import { MarkWorkerTime } from './entities/worker-timeline/components/mark-worker-time';
-import { WorkerTracerTime } from './pages/worker-tracer-time';
-import { WorkerTracerTimeDetail } from './pages/worker-tracer-time-detail';
+import { WorkerPayment } from './pages/worker-payment/payment-template';
+
 
 export const router = createBrowserRouter([
   {
@@ -38,6 +43,10 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      {
+        path: 'payment',
+        element: <WorkerPayment />
+      }
     ],
   },
 ]);

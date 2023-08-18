@@ -1,0 +1,12 @@
+query GetPaymentTemplate {
+  getPaymentTemplate {
+    extraHourHoliday
+    intervalNonNight { since until}
+    baseHourDay
+    baseHourHoliday
+    nocturnHourNormalDay
+    nocturnHourHoliday
+    extraHourNormalDay
+    hoursMinimum 
+  }
+}

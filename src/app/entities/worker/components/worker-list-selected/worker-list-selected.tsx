@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import { useGraphqlWorker } from '../../hooks/useGraphqlWorker';
-import { ListSubheader } from '@mui/material';
+import { CircularProgress, ListSubheader } from '@mui/material';
 
 const { VITE_CDN_IMAGES_WORKER } = import.meta.env;
 
@@ -15,12 +15,17 @@ export function WorkerListSelected({
   onClickItem: (id: string) => void;
 }) {
   const {
-    resultGetWorker: { data },
+    resultGetWorker: { data, loading },
   } = useGraphqlWorker();
   return (
     <List
       dense
-      subheader={<ListSubheader>Select a worker</ListSubheader>}
+      subheader={
+        <ListSubheader>
+          {loading && <CircularProgress />}
+          Select a worker
+        </ListSubheader>
+      }
       sx={{
         width: '100%',
         maxWidth: 500,

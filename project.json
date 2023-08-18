@@ -58,8 +58,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "pnpm apollo service:download --endpoint=[replace-url-api] graphql-schema.json --header=\"x-api-key: [replace-api-key]\"",
-          "pnpm apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --tagName=gql"
+          "graphql-codegen --config codegen.ts"
         ]
       }
     },
