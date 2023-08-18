@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "deploy:dev": "nx deploy-client",
     "generate-types": "nx generate-graphql-types",
     "build": "nx build --verbose",
     "test": "nx test"
@@ -38,6 +39,9 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-resolvers": "^4.0.1",
     "@nx/cypress": "16.5.1",
     "@nx/eslint-plugin": "16.5.1",
     "@nx/js": "16.5.1",

@@ -5,7 +5,7 @@ import {
   endOfMonth,
   lastDayOfWeek,
   startOfMonth,
-  startOfWeek
+  startOfWeek,
 } from "date-fns";
 
 function getWeekDays(selectedDate: Date, size: number) {

@@ -20,6 +20,23 @@
         }
       }
     },
+    "deploy-client": {
+      "executor": "nx:run-commands",
+      "options": {
+        "buildTarget": "check-in-face-frontend:build",
+        "commands": [
+          "aws s3 rm s3://check-in-face-client-app-dev-fronted-client --recursive && aws s3 cp dist/check-in-face-frontend s3://check-in-face-client-app-dev-fronted-client --recursive && aws configure set preview.cloudfront true && aws cloudfront create-invalidation --distribution-id E14RKWUQECC44V --paths '/index.html'"
+        ],
+        "configurations": {
+          "development": {
+            "mode": "development"
+          },
+          "production": {
+            "mode": "production"
+          }
+        }
+      }
+    },    
     "serve": {
       "executor": "@nx/vite:dev-server",
       "defaultConfiguration": "development",

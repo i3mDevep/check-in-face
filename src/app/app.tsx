@@ -8,13 +8,13 @@ import { WorkerTracerTimeDetail } from './pages/worker-tracer-time-detail';
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/app/worker" replace={true} />,
+    element: <MarkWorkerTime modeFab={false} />,
   },
   {
     path: 'app',
     element: (
       <>
-        <MarkWorkerTime />
+        <MarkWorkerTime modeFab />
         <MainLayout />
       </>
     ),

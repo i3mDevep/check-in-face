@@ -5,6 +5,8 @@ import Snackbar from '@mui/material/Snackbar';
 import Webcam from 'react-webcam';
 import Fab from '@mui/material/Fab';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import { Avatar, Box, Stack } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
 
 import { convertBase64ToFile } from 'src/app/utils/convert-base64-to-file';
 import { ModalWorkerCamera } from 'src/app/entities/shared/modal-worker-camera';
@@ -12,8 +14,9 @@ import { ModalWorkerCamera } from 'src/app/entities/shared/modal-worker-camera';
 import { useGraphqlMarkTimeWorker } from '../../hooks/useGraphqlMarkTimeWorker';
 import { useStorageMarkTimeWorker } from '../../hooks/useStorageMarkTimeWorker';
 import { TracerTimeReason } from '../tracer-time-worker-table/tracer-time-reason';
-import { Stack } from '@mui/material';
+
 import { TRACER_REASON, typeWithTracerReason } from '../../const/tracer-types';
+import { useNavigate } from 'react-router-dom';
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   props,
@@ -22,7 +25,9 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export function MarkWorkerTime() {
+export function MarkWorkerTime({ modeFab }: { modeFab: boolean }) {
+  const navigation = useNavigate();
+
   const webcamRef = useRef<Webcam>(null);
   const [messageSnackbar, setMessageSnackbar] = useState<{
     message: string;
@@ -73,22 +78,21 @@ export function MarkWorkerTime() {
           },
         },
       });
-  
+
       setMessageSnackbar({
         message: `${result?.data?.markRecordWorker?.identification} - ${result?.data?.markRecordWorker?.fullName}`,
         severity: 'success',
       });
-  
+
       handleCloseModal();
-    } catch (error: any) {
+    } catch (error) {
       webcamRef.current?.video?.play();
 
       setMessageSnackbar({
-        message: error.message,
+        message: (error as { message: string }).message,
         severity: 'error',
       });
     }
-
   }, [markTimeWorker, reasonSelected, saveImage]);
 
   return (
@@ -114,6 +118,7 @@ export function MarkWorkerTime() {
         capturePicture={capture}
         loading={loading || loadingMutationMark}
         onClose={handleCloseModal}
+        dialogProps={{ sx: { '& .MuiDialog-paper': { transform: 'scale(1.2)'} }}}
         loadingButtonSx={{ top: 0, marginBottom: 10, marginTop: 10 }}
         disabledCapture={!reasonSelected}
         slots={{
@@ -122,10 +127,9 @@ export function MarkWorkerTime() {
               display="grid"
               gridTemplateColumns="repeat(3, 1fr)"
               width="min-content"
-              gap={2}
+              gap={10}
               spacing={1}
               position="relative"
-              top={-20}
             >
               <TracerTimeReason
                 selected={reasonSelected as TRACER_REASON}
@@ -135,14 +139,50 @@ export function MarkWorkerTime() {
           ),
         }}
       />
-      <Fab
-        sx={{ position: 'fixed', bottom: 0, right: 0, margin: 20 }}
-        color="primary"
-        aria-label="mark-time"
-        onClick={() => setOpenModalMarkTime(true)}
-      >
-        <EventAvailableIcon />
-      </Fab>
+      {modeFab ? (
+        <Fab
+          sx={{ position: 'fixed', bottom: 0, right: 0, margin: 20 }}
+          color="primary"
+          aria-label="mark-time"
+          onClick={() => setOpenModalMarkTime(true)}
+        >
+          <EventAvailableIcon />
+        </Fab>
+      ) : (
+        <>
+          <Fab
+            size="small"
+            sx={{ margin: 4 }}
+            color="secondary"
+            aria-label="home"
+            onClick={() => navigation('/app/worker')}
+          >
+            <HomeIcon />
+          </Fab>
+          <Box
+            component="button"
+            bgcolor="primary.main"
+            padding={5}
+            borderRadius={50}
+            position="fixed"
+            onClick={() => setOpenModalMarkTime(true)}
+            top="calc(50% - 43px)"
+            left="calc(50% - 43px)"
+          >
+            <Avatar
+              sx={{ width: 86, height: 86 }}
+              src="https://cdn-icons-png.flaticon.com/512/5556/5556512.png"
+            />
+            <Box
+              sx={{ fontSize: 14, left: 30, bottom: 0, position: 'absolute' }}
+            >
+              <span aria-label="icon-app" role="img">
+                🔥
+              </span>
+            </Box>
+          </Box>
+        </>
+      )}
     </>
   );
 }

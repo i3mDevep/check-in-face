@@ -72,7 +72,7 @@ export function SidebarV2() {
       >
         <Paper elevation={0} sx={{ maxWidth: 256 }}>
           <FireNav sx={{ position: 'relative' }} component="nav" disablePadding>
-            <ListItemButton disableTouchRipple component="a" href="app/worker">
+            <ListItemButton disableTouchRipple component="a" href="/">
               <Avatar src='https://cdn-icons-png.flaticon.com/512/5556/5556512.png' />
               <ListItemIcon sx={{ fontSize: 14, left: 50, bottom: 0, position: 'absolute' }}>
                 <span aria-label="icon-app" role="img">

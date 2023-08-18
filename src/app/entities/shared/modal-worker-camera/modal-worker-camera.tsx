@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Alert, Box, DialogActions, Skeleton, SxProps } from '@mui/material';
+import { Alert, Box, DialogActions, DialogProps, Skeleton, SxProps } from '@mui/material';
 import Webcam from 'react-webcam';
 import { DialogBase } from 'src/app/shared/components/dialog-base';
 
@@ -10,6 +10,7 @@ export interface ModalWorkerCameraProps {
   capturePicture: () => void;
   loading?: boolean;
   disabledCapture?: boolean;
+  dialogProps?: Partial<DialogProps>
   slots?: { dialogActionComponent?: JSX.Element };
   loadingButtonSx?: SxProps;
   hiddenAlert?: boolean;
@@ -26,6 +27,7 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
       slots,
       loadingButtonSx,
       hiddenAlert,
+      dialogProps
     },
     webcamRef
   ) => {
@@ -37,7 +39,7 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
 
     return (
       <DialogBase
-        dialogProps={{ open, onClose }}
+        dialogProps={{ open, onClose, ...dialogProps }}
         otherComponent={
           <DialogActions sx={{ flexDirection: 'column' }}>
             {slots?.dialogActionComponent}
@@ -46,7 +48,6 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
                 width: 100,
                 margin: 'auto',
                 position: 'relative',
-                top: -20,
                 ...loadingButtonSx,
               }}
               disabled={disabledCapture}
