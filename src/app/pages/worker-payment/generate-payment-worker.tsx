@@ -26,8 +26,7 @@ export const GeneratePaymentWorker = () => {
     dataGeneratePayment && identification
       ? {
           query: {
-            start: dataGeneratePayment.start,
-            end: dataGeneratePayment.end,
+            ...dataGeneratePayment,
             identification,
           },
         }

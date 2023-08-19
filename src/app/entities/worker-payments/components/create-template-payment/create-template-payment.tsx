@@ -129,16 +129,17 @@ export const CreateTemplatePayment = () => {
       </Stack>
       <Stack gap={5} direction="row">
         <FormInputCurrency
+      
           control={control}
           label="Basic hour price"
           name="baseHourDay"
-          textFieldProps={{ variant: 'outlined' }}
+          textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
         <FormInputCurrency
           control={control}
           label="Holiday hour price"
           name="baseHourHoliday"
-          textFieldProps={{ variant: 'outlined' }}
+          textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
       </Stack>
       <Stack gap={5} direction="row">
@@ -146,13 +147,13 @@ export const CreateTemplatePayment = () => {
           control={control}
           label="Basic extra hour price"
           name="extraHourNormalDay"
-          textFieldProps={{ variant: 'outlined' }}
+          textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
         <FormInputCurrency
           control={control}
           label="Holiday extra hour price"
           name="extraHourHoliday"
-          textFieldProps={{ variant: 'outlined' }}
+          textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
       </Stack>
       <Stack gap={5} direction="row">
@@ -160,13 +161,13 @@ export const CreateTemplatePayment = () => {
           control={control}
           label="Basic night hour"
           name="nocturnHourNormalDay"
-          textFieldProps={{ variant: 'outlined' }}
+          textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
         <FormInputCurrency
           control={control}
           label="Holiday night hour"
           name="nocturnHourHoliday"
-          textFieldProps={{ variant: 'outlined' }}
+          textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
       </Stack>
       <LoadingButton

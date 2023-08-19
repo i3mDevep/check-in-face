@@ -1,4 +1,4 @@
-query GenerateWorkerPayment($query: IntervalWorkerTimeQueryInput!) {
+query GenerateWorkerPayment($query: GenerateWorkerPaymentQueryInput!) {
   generateWorkerPayment(query: $query) {
     day
     hoursWorked

@@ -21,6 +21,13 @@ export type DisassociateWorkerImagesInput = {
   identification: Scalars['ID']['input'];
 };
 
+export type GenerateWorkerPaymentQueryInput = {
+  end: Scalars['String']['input'];
+  holidays?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  identification: Scalars['ID']['input'];
+  start: Scalars['String']['input'];
+};
+
 export type IntervalNonNightInput = {
   since?: InputMaybe<Scalars['Int']['input']>;
   until?: InputMaybe<Scalars['Int']['input']>;
@@ -130,7 +137,7 @@ export type Query = {
 
 
 export type QueryGenerateWorkerPaymentArgs = {
-  query: IntervalWorkerTimeQueryInput;
+  query: GenerateWorkerPaymentQueryInput;
 };
 
 
@@ -306,6 +313,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   DisassociateWorkerImagesInput: DisassociateWorkerImagesInput;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  GenerateWorkerPaymentQueryInput: GenerateWorkerPaymentQueryInput;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   IntervalNonNightInput: IntervalNonNightInput;
@@ -336,6 +344,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   DisassociateWorkerImagesInput: DisassociateWorkerImagesInput;
   Float: Scalars['Float']['output'];
+  GenerateWorkerPaymentQueryInput: GenerateWorkerPaymentQueryInput;
   ID: Scalars['ID']['output'];
   Int: Scalars['Int']['output'];
   IntervalNonNightInput: IntervalNonNightInput;

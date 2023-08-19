@@ -85,7 +85,7 @@ export function SelectIntervalAndHoliday({
   onGenerate,
   loading,
 }: {
-  loading: boolean
+  loading: boolean;
   onGenerate: ({
     start,
     end,
@@ -152,7 +152,9 @@ export function SelectIntervalAndHoliday({
     onGenerate({
       start: selectedRange[0]?.toISOString(),
       end: selectedRange[1]?.toISOString(),
-      holidays: [],
+      holidays: Object.entries(checkList).flatMap(([day, check]) =>
+        check ? Number(day) : []
+      ),
     });
   };
 
@@ -189,7 +191,9 @@ export function SelectIntervalAndHoliday({
           );
         })}
       </FormGroup>
-      <LoadingButton loading={loading} onClick={handleGenerate}>Generate</LoadingButton>
+      <LoadingButton loading={loading} onClick={handleGenerate}>
+        Generate
+      </LoadingButton>
     </FormControl>
   );
   return (
