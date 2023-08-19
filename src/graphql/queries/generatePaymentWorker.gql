@@ -1,0 +1,16 @@
+query GenerateWorkerPayment($query: IntervalWorkerTimeQueryInput!) {
+  generateWorkerPayment(query: $query) {
+    day
+    hoursWorked
+    hoursWorkedBasic
+    hoursWorkedExtra
+    hoursNight
+    payment {
+      paymentHoursBasic
+      surcharges {
+        paymentHoursExtra
+        paymentHoursNight
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ export const CreateTemplatePayment = () => {
   const {
     resultGetPaymentTemplate: { loading: loadingGetPayment, data },
     putTemplatePayment: [mutationPutTemplatePayment, { loading }],
-  } = useGraphqlPayments();
+  } = useGraphqlPayments({ skipPaymentTemplate: false });
 
   const { component, setMessageSnackbar } = useNotification()
 
@@ -100,7 +100,7 @@ export const CreateTemplatePayment = () => {
       margin="auto"
     >
       {component}
-      <Typography variant="h5" margin="auto">
+      <Typography variant="h5">
         Template payment
       </Typography>
       <Alert severity="info" color="warning">

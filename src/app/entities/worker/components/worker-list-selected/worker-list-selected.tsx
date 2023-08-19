@@ -10,9 +10,11 @@ import { CircularProgress, ListSubheader } from '@mui/material';
 const { VITE_CDN_IMAGES_WORKER } = import.meta.env;
 
 export function WorkerListSelected({
+  title = 'Select a worker',
   onClickItem,
 }: {
   onClickItem: (id: string) => void;
+  title?: string
 }) {
   const {
     resultGetWorker: { data, loading },
@@ -23,7 +25,7 @@ export function WorkerListSelected({
       subheader={
         <ListSubheader>
           {loading && <CircularProgress />}
-          Select a worker
+          {title}
         </ListSubheader>
       }
       sx={{

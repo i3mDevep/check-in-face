@@ -1,0 +1,1 @@
+declare module "@david.kucsai/react-pdf-table";

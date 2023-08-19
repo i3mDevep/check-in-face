@@ -8,6 +8,7 @@ import { WorkerTracerTimeDetail } from './pages/worker-tracer-time/detail';
 
 import { MarkWorkerTime } from './entities/worker-timeline/components/mark-worker-time';
 import { WorkerPayment } from './pages/worker-payment/payment-template';
+import { GeneratePaymentWorker } from './pages/worker-payment/generate-payment-worker';
 
 
 export const router = createBrowserRouter([
@@ -45,8 +46,19 @@ export const router = createBrowserRouter([
       },
       {
         path: 'payment',
-        element: <WorkerPayment />
-      }
+        children: [
+          {
+            element: <WorkerPayment />,
+            index: true
+          },
+          {
+            path: ':identification',
+            element: (
+              <GeneratePaymentWorker />
+            ),
+          }
+        ]
+      },
     ],
   },
 ]);

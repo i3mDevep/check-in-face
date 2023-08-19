@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.17",
     "@aws-amplify/predictions": "^5.4.4",
+    "@david.kucsai/react-pdf-table": "^0.4.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.1",
@@ -20,6 +21,7 @@
     "@mui/material": "^5.14.1",
     "@mui/x-data-grid": "^6.10.1",
     "@mui/x-date-pickers": "^6.10.2",
+    "@react-pdf/renderer": "^3.1.12",
     "@swc/helpers": "~0.5.0",
     "aws-amplify": "^5.3.4",
     "axios": "^1.4.0",
