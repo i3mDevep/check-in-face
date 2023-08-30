@@ -3,12 +3,14 @@ import { DialogBase } from 'src/app/shared/components/dialog-base';
 import {
   Alert,
   AlertProps,
+  Box,
   Button,
   Chip,
   Snackbar,
   Stack,
 } from '@mui/material';
 import { TimeClock } from '@mui/x-date-pickers';
+import { DateField } from '@mui/x-date-pickers/DateField';
 import dayjs, { Dayjs } from 'dayjs';
 import {
   TRACER_REASON_MANUAL,
@@ -83,7 +85,7 @@ export function ModalCreateTimestamp({
 
   return (
     <>
-      <Button variant='outlined' onClick={handleClickOpen} sx={{ margin: 10 }}>
+      <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: 10 }}>
         Create timestamp
       </Button>
       <Snackbar
@@ -105,8 +107,17 @@ export function ModalCreateTimestamp({
         description="To create a new manual timestamp. select date and time"
         dialogProps={{ open, onClose: handleClose }}
       >
-        {value?.format('MMMM D, YYYY h:mm A')}
+        <Box>{value?.format('MMMM D, YYYY h:mm A')}</Box>
+        <Box marginBottom={5}>
+          <DateField size="small" value={value} onChange={(newValue) => {
+            newValue?.hour(value!.get('hour'))
+            newValue?.minute(value!.get('minute'))
+            setValue(newValue)
+          }} />
+        </Box>
+
         <TimeClock
+          ampm={false}
           value={value}
           onChange={(newValue) => setValue(newValue)}
           showViewSwitcher
