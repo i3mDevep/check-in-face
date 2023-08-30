@@ -14,7 +14,7 @@ export const WorkerTracerTimeCalendarView = () => {
     <CalendarProvider
       allowViewPicker
       layoutOptionsAllow={[layoutOptions.DAY, layoutOptions.WEEK]}
-      defaultLayout={layoutOptions.DAY}
+      defaultLayout={layoutOptions.WEEK}
     >
       <TracerTimeWorkerCalendar identification={identification} />
     </CalendarProvider>

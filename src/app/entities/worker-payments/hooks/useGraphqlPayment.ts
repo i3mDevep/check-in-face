@@ -18,7 +18,7 @@ export const useGraphqlPayments = ({
 }: {
   skipPaymentTemplate: boolean;
   generateWorkerPaymentArgs?: QueryGenerateWorkerPaymentArgs;
-  onCompletedGenerator?: () => void
+  onCompletedGenerator?: () => void;
 }) => {
   const resultGetPaymentTemplate = useQuery<
     {
@@ -28,14 +28,12 @@ export const useGraphqlPayments = ({
   >(GET_TEMPLATE_PAYMENT, { skip: skipPaymentTemplate });
 
   const resultGeneratePaymentWorker = useQuery<
-    {
-      generateWorkerPayment: Query['generateWorkerPayment'];
-    },
+    Pick<Query, 'generateWorkerPayment'>,
     QueryGenerateWorkerPaymentArgs
   >(GENERATE_WORKER_PAYMENT, {
     variables: generateWorkerPaymentArgs,
     skip: !generateWorkerPaymentArgs,
-    onCompleted: () => onCompletedGenerator?.()
+    onCompleted: () => onCompletedGenerator?.(),
   });
 
   const lazyGetPaymentTemplate = useLazyQuery<

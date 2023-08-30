@@ -1,6 +1,6 @@
-import { CircularProgress } from '@mui/material';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import { CircularProgress } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { QueryGenerateWorkerPaymentArgs } from 'src/api-graphql-types';
 import {
@@ -21,12 +21,19 @@ export const GeneratePaymentWorker = () => {
     holidays: number[];
   }>();
 
+
+  const {
+    detailWorker: [getDetailWorker, result],
+  } = useGraphqlWorker(true);
+
   const dtoQueryGenerator: QueryGenerateWorkerPaymentArgs | undefined =
     dataGeneratePayment && identification
       ? {
           query: {
             ...dataGeneratePayment,
+            scheduleWeek: result.data?.getDetailWorker.scheduleWeek ?? [],
             identification,
+            
           },
         }
       : undefined;
@@ -39,9 +46,6 @@ export const GeneratePaymentWorker = () => {
     onCompletedGenerator: () => setOpenModalHoliday(false),
   });
 
-  const {
-    detailWorker: [getDetailWorker, result],
-  } = useGraphqlWorker(true);
 
   useEffect(() => {
     getDetailWorker({
@@ -49,7 +53,8 @@ export const GeneratePaymentWorker = () => {
     });
   }, [getDetailWorker, identification]);
 
-  const dtoDataPdf = (data?.generateWorkerPayment as PaymentWorker[]) ?? [];
+  const dtoDataPdf = (data?.generateWorkerPayment) ?? {};
+
   if (!result.data) return <CircularProgress />;
 
   const { fullName, identification: id } = result.data.getDetailWorker;
@@ -62,9 +67,9 @@ export const GeneratePaymentWorker = () => {
     <>
       {!openModalHoliday && (
         <PaymentWorkerPDF
+          paymentPeriod={paymentPeriod}
           fullName={fullName}
           identification={id}
-          paymentPeriod={paymentPeriod}
           data={dtoDataPdf}
         />
       )}

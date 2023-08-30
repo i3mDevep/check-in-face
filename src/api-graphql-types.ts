@@ -25,6 +25,7 @@ export type GenerateWorkerPaymentQueryInput = {
   end: Scalars['String']['input'];
   holidays?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
   identification: Scalars['ID']['input'];
+  scheduleWeek?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   start: Scalars['String']['input'];
 };
 
@@ -108,13 +109,12 @@ export type PaymentWorkerTime = {
   __typename?: 'PaymentWorkerTime';
   details?: Maybe<Array<Maybe<PaymentWorkerTimeDetails>>>;
   payment?: Maybe<PaymentWorkerValues>;
+  totalizer?: Maybe<PaymentWorkerTotalizer>;
 };
 
 export type PaymentWorkerTimeDetails = {
   __typename?: 'PaymentWorkerTimeDetails';
   day?: Maybe<Scalars['String']['output']>;
-  hoursNight?: Maybe<Scalars['Float']['output']>;
-  hoursWorkedTotal?: Maybe<Scalars['Float']['output']>;
   registers?: Maybe<Array<Maybe<PaymentWorkerTimeDetailsRegister>>>;
 };
 
@@ -122,6 +122,17 @@ export type PaymentWorkerTimeDetailsRegister = {
   __typename?: 'PaymentWorkerTimeDetailsRegister';
   end?: Maybe<Scalars['String']['output']>;
   start?: Maybe<Scalars['String']['output']>;
+};
+
+export type PaymentWorkerTotalizer = {
+  __typename?: 'PaymentWorkerTotalizer';
+  hoursNightBasic?: Maybe<Scalars['Float']['output']>;
+  hoursNightHoliday?: Maybe<Scalars['Float']['output']>;
+  hoursWorkedBasic?: Maybe<Scalars['Float']['output']>;
+  hoursWorkedBasicHoliday?: Maybe<Scalars['Float']['output']>;
+  hoursWorkedExtraBasic?: Maybe<Scalars['Float']['output']>;
+  hoursWorkedExtraHoliday?: Maybe<Scalars['Float']['output']>;
+  hoursWorkedTotal?: Maybe<Scalars['Float']['output']>;
 };
 
 export type PaymentWorkerValues = {
@@ -341,6 +352,7 @@ export type ResolversTypes = {
   PaymentWorkerTime: ResolverTypeWrapper<PaymentWorkerTime>;
   PaymentWorkerTimeDetails: ResolverTypeWrapper<PaymentWorkerTimeDetails>;
   PaymentWorkerTimeDetailsRegister: ResolverTypeWrapper<PaymentWorkerTimeDetailsRegister>;
+  PaymentWorkerTotalizer: ResolverTypeWrapper<PaymentWorkerTotalizer>;
   PaymentWorkerValues: ResolverTypeWrapper<PaymentWorkerValues>;
   PositionInterval: ResolverTypeWrapper<PositionInterval>;
   Query: ResolverTypeWrapper<{}>;
@@ -374,6 +386,7 @@ export type ResolversParentTypes = {
   PaymentWorkerTime: PaymentWorkerTime;
   PaymentWorkerTimeDetails: PaymentWorkerTimeDetails;
   PaymentWorkerTimeDetailsRegister: PaymentWorkerTimeDetailsRegister;
+  PaymentWorkerTotalizer: PaymentWorkerTotalizer;
   PaymentWorkerValues: PaymentWorkerValues;
   PositionInterval: PositionInterval;
   Query: {};
@@ -471,13 +484,12 @@ export type PaymentWorkerSurchargesResolvers<ContextType = any, ParentType exten
 export type PaymentWorkerTimeResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentWorkerTime'] = ResolversParentTypes['PaymentWorkerTime']> = {
   details?: Resolver<Maybe<Array<Maybe<ResolversTypes['PaymentWorkerTimeDetails']>>>, ParentType, ContextType>;
   payment?: Resolver<Maybe<ResolversTypes['PaymentWorkerValues']>, ParentType, ContextType>;
+  totalizer?: Resolver<Maybe<ResolversTypes['PaymentWorkerTotalizer']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type PaymentWorkerTimeDetailsResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentWorkerTimeDetails'] = ResolversParentTypes['PaymentWorkerTimeDetails']> = {
   day?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  hoursNight?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  hoursWorkedTotal?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   registers?: Resolver<Maybe<Array<Maybe<ResolversTypes['PaymentWorkerTimeDetailsRegister']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
@@ -485,6 +497,17 @@ export type PaymentWorkerTimeDetailsResolvers<ContextType = any, ParentType exte
 export type PaymentWorkerTimeDetailsRegisterResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentWorkerTimeDetailsRegister'] = ResolversParentTypes['PaymentWorkerTimeDetailsRegister']> = {
   end?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   start?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PaymentWorkerTotalizerResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentWorkerTotalizer'] = ResolversParentTypes['PaymentWorkerTotalizer']> = {
+  hoursNightBasic?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hoursNightHoliday?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hoursWorkedBasic?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hoursWorkedBasicHoliday?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hoursWorkedExtraBasic?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hoursWorkedExtraHoliday?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  hoursWorkedTotal?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -572,6 +595,7 @@ export type Resolvers<ContextType = any> = {
   PaymentWorkerTime?: PaymentWorkerTimeResolvers<ContextType>;
   PaymentWorkerTimeDetails?: PaymentWorkerTimeDetailsResolvers<ContextType>;
   PaymentWorkerTimeDetailsRegister?: PaymentWorkerTimeDetailsRegisterResolvers<ContextType>;
+  PaymentWorkerTotalizer?: PaymentWorkerTotalizerResolvers<ContextType>;
   PaymentWorkerValues?: PaymentWorkerValuesResolvers<ContextType>;
   PositionInterval?: PositionIntervalResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

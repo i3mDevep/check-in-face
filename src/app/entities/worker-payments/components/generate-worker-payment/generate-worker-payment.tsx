@@ -13,9 +13,14 @@ import {
   TableHeader,
   TableBody,
 } from '@david.kucsai/react-pdf-table';
+import {
+  Maybe,
+  PaymentWorkerTime,
+  PaymentWorkerTimeDetailsRegister,
+} from 'src/api-graphql-types';
+
 import { styles } from './styles-pdf';
-import { useMemo } from 'react';
-import { Maybe, PaymentWorkerTime } from 'src/api-graphql-types';
+import dayjs from 'dayjs';
 
 function formatCurrencyToCOP(value: number) {
   const options = {
@@ -28,7 +33,8 @@ function formatCurrencyToCOP(value: number) {
   return value.toLocaleString('es-CO', options);
 }
 
-const getShortValue = (value: number) => value.toFixed(2);
+const getShortValue = (value?: number | string | null) =>
+  typeof value === 'number' ? value.toFixed(2) : Number(value).toFixed(2);
 
 export const PaymentWorkerPDF = ({
   data,
@@ -41,7 +47,13 @@ export const PaymentWorkerPDF = ({
   fullName: string;
   identification: string;
 }) => {
-  const totalizer = Number(data?.payment?.paymentHoursBasic) + Number(data?.payment?.surcharges?.paymentHoursExtra) + Number(data?.payment?.surcharges?.paymentHoursNight) +  Number(data?.payment?.surcharges?.paymentHoursExtraHoliday) + Number(data?.payment?.surcharges?.paymentHoursNightHoliday)
+  const { __typename, ...restSurcharges } = data?.payment?.surcharges ?? {};
+  const paymentTotal =
+    Number(data?.payment?.paymentHoursBasic) +
+    (Object.values(restSurcharges).reduce(
+      (prev, curr) => (prev ?? 0) + Number(curr),
+      0
+    ) ?? 0);
 
   return (
     <PDFViewer style={{ height: '100%' }}>
@@ -50,114 +62,148 @@ export const PaymentWorkerPDF = ({
           <Text style={styles.header} fixed>
             Payment - Cyrus Industries
           </Text>
+          <View style={styles.employeeInfo}>
+            <View style={styles.employeeInfoItem}>
+              <Text style={styles.label}>Name:</Text>
+              <Text style={styles.value}>{fullName}</Text>
+            </View>
+            <View style={styles.employeeInfoItem}>
+              <Text style={styles.label}>Identification:</Text>
+              <Text style={styles.value}>{identification}</Text>
+            </View>
+            <View style={styles.employeeInfoItem}>
+              <Text style={styles.label}>Payment period:</Text>
+              <Text style={styles.value}>{paymentPeriod}</Text>
+            </View>
+          </View>
           <View style={styles.summary}>
-            <View style={styles.employeeInfo}>
+            <View style={styles.summaryContent}>
+              <Text style={styles.header}>Payment details</Text>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Name:</Text>
-                <Text style={styles.value}>{fullName}</Text>
+                <Text style={styles.label}>Payment Total:</Text>
+                <Text style={styles.value}>
+                  {formatCurrencyToCOP(paymentTotal)}
+                </Text>
               </View>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Identification:</Text>
-                <Text style={styles.value}>{identification}</Text>
+                <Text style={styles.label}>Payment Hours Basic:</Text>
+                <Text style={styles.value}>
+                  {formatCurrencyToCOP(
+                    Number(data?.payment?.paymentHoursBasic)
+                  )}
+                </Text>
               </View>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Payment period:</Text>
-                <Text style={styles.value}>{paymentPeriod}</Text>
+                <Text style={styles.label}>Payment Hours Extra:</Text>
+                <Text style={styles.value}>
+                  {formatCurrencyToCOP(
+                    Number(data?.payment?.surcharges?.paymentHoursExtra)
+                  )}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Payment Hours Extra Holiday:</Text>
+                <Text style={styles.value}>
+                  {formatCurrencyToCOP(
+                    Number(data?.payment?.surcharges?.paymentHoursExtraHoliday)
+                  )}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Payment Hours Night:</Text>
+                <Text style={styles.value}>
+                  {formatCurrencyToCOP(
+                    Number(data?.payment?.surcharges?.paymentHoursNight)
+                  )}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Payment Hours Night Holiday:</Text>
+                <Text style={styles.value}>
+                  {formatCurrencyToCOP(
+                    Number(data?.payment?.surcharges?.paymentHoursNightHoliday)
+                  )}
+                </Text>
               </View>
             </View>
-
             <View style={styles.summaryContent}>
-              {/* <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Total hours worked:</Text>
-                <Text style={styles.value}>
-                  {totalizer.totalHours.toFixed(2)}
-                </Text>
-              </View> */}
+              <Text style={styles.header}>Hours details</Text>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Total payment:</Text>
+                <Text style={styles.label}>Hours Worked Total:</Text>
                 <Text style={styles.value}>
-                  {formatCurrencyToCOP(totalizer)}
+                  {getShortValue(data?.totalizer?.hoursWorkedTotal)}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Hours Worked Basic:</Text>
+                <Text style={styles.value}>
+                  {getShortValue(data?.totalizer?.hoursWorkedBasic)}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Hours Worked Basic Holiday:</Text>
+                <Text style={styles.value}>
+                  {getShortValue(data?.totalizer?.hoursWorkedBasicHoliday)}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Hours Worked Extra Basic:</Text>
+                <Text style={styles.value}>
+                  {getShortValue(data?.totalizer?.hoursWorkedExtraBasic)}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Hours Worked Extra Holiday:</Text>
+                <Text style={styles.value}>
+                  {getShortValue(data?.totalizer?.hoursWorkedExtraHoliday)}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Hours Night Basic:</Text>
+                <Text style={styles.value}>
+                  {getShortValue(data?.totalizer?.hoursNightBasic)}
+                </Text>
+              </View>
+              <View style={styles.employeeInfoItem}>
+                <Text style={styles.label}>Hours Night Holiday:</Text>
+                <Text style={styles.value}>
+                  {getShortValue(data?.totalizer?.hoursNightHoliday)}
                 </Text>
               </View>
             </View>
           </View>
-
-          {/* <Table data={data}>
-            <TableHeader fontSize="8px" textAlign={'center'}>
-              <TableCell weighting={0.5}>day</TableCell>
-              <TableCell>hours total</TableCell>
-              <TableCell>hours basic</TableCell>
-              <TableCell>hours extra</TableCell>
-              <TableCell>hours night</TableCell>
-              <TableCell>payment basic</TableCell>
-              <TableCell>payment extra</TableCell>
-              <TableCell>payment night</TableCell>
-              <TableCell>payment total</TableCell>
-            </TableHeader>
-            <TableBody>
-              <DataTableCell
-                style={styles.cellTable}
-                weighting={0.43}
-                getContent={(r: PaymentWorker) => r.day}
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) => getShortValue(r.hoursWorked)}
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) =>
-                  getShortValue(r.hoursWorkedBasic)
-                }
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) =>
-                  getShortValue(r.hoursWorkedExtra)
-                }
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) => getShortValue(r.hoursNight)}
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) =>
-                  formatCurrencyToCOP(r.payment.paymentHoursBasic)
-                }
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) =>
-                  formatCurrencyToCOP(r.payment.surcharges.paymentHoursExtra)
-                }
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) =>
-                  formatCurrencyToCOP(r.payment.surcharges.paymentHoursNight)
-                }
-              />
-              <DataTableCell
-                style={styles.cellTable}
-                getContent={(r: PaymentWorker) =>
-                  formatCurrencyToCOP(
-                    r.payment.surcharges.paymentHoursNight +
-                      r.payment.surcharges.paymentHoursExtra +
-                      r.payment.paymentHoursBasic
-                  )
-                }
-              />
-            </TableBody>
-          </Table> */}
-
-          <Text
-            style={styles.pageNumber}
-            render={({ pageNumber, totalPages }) =>
-              `${pageNumber} / ${totalPages}`
-            }
-            fixed
-          />
+          {data?.details?.map((detail) => {
+            return (
+              <View style={styles.table} key={detail?.day}>
+                <Table data={detail?.registers}>
+                  <TableHeader fontSize="8px" textAlign={'center'}>
+                    <TableCell weighting={0.5}>day</TableCell>
+                    <TableCell>start</TableCell>
+                    <TableCell>end</TableCell>
+                  </TableHeader>
+                  <TableBody>
+                    <DataTableCell
+                      style={styles.cellTable}
+                      weighting={0.48}
+                      getContent={() => detail?.day}
+                    />
+                    <DataTableCell
+                      style={styles.cellTable}
+                      getContent={(row: PaymentWorkerTimeDetailsRegister) =>
+                        dayjs(row.start).format('MMMM D, YYYY h:mm A')
+                      }
+                    />
+                    <DataTableCell
+                      style={styles.cellTable}
+                      getContent={(row: PaymentWorkerTimeDetailsRegister) =>
+                        dayjs(row.end).format('MMMM D, YYYY h:mm A')
+                      }
+                    />
+                  </TableBody>
+                </Table>
+              </View>
+            );
+          })}
         </Page>
       </Document>
     </PDFViewer>

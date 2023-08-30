@@ -17,7 +17,6 @@ import { WorkerTracerTimeTableView } from './worker-tracer-time-table-view';
 import { WorkerTracerTimeCalendarView } from './worker-tracer-time-calendar-view';
 
 import { GetListWorkerMarkTime_getListWorkerMarkTime } from 'src/graphql/queries/__generated__/GetListWorkerMarkTime';
-import { useCalculateIntervalsWithDate } from 'src/app/entities/worker-timeline/hooks/useCalculateIntervalsWithDate';
 
 import { CardAnalytics } from 'src/app/shared/components/card-analytics';
 import { ModalCreateTimestamp } from 'src/app/entities/worker-timeline/components/create-manual-timestamp';
@@ -27,45 +26,44 @@ export const WorkerTracerTimeDetail = () => {
   const [resultQueryMark, setResultQueryMark] = useState<
     GetListWorkerMarkTime_getListWorkerMarkTime[] | undefined
   >();
-  const { intervals } = useCalculateIntervalsWithDate(resultQueryMark ?? []);
 
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState('2');
   const { identification } = useParams();
 
   const getSumOfMinutesTotal = useMemo(() => {
-    return intervals.reduce((acc, entry) => acc + entry.minutes, 0);
-  }, [intervals]);
+    return [].reduce((acc, entry) => acc + 0, 0);
+  }, []);
 
   const handleChange = (_: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
 
-  const handleDownload = () => {
-    const rows = intervals.map((interval) => ({
-      identification,
-      timeIn: interval.start,
-      timeEnd: interval.end,
-      timeWorked: interval.minutes,
-    }));
+  // const handleDownload = () => {
+  //   const rows = intervals.map((interval) => ({
+  //     identification,
+  //     timeIn: interval.start,
+  //     timeEnd: interval.end,
+  //     timeWorked: interval.minutes,
+  //   }));
 
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(rows);
+  //   const workbook = XLSX.utils.book_new();
+  //   const worksheet = XLSX.utils.json_to_sheet(rows);
 
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'TimeMarkedWorker');
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'TimeMarkedWorker');
 
-    XLSX.utils.sheet_add_aoa(worksheet, [
-      [
-        'Identification',
-        'Time in (Date)',
-        'Time out (Date)',
-        'Time worked (minutes)',
-      ],
-    ]);
+  //   XLSX.utils.sheet_add_aoa(worksheet, [
+  //     [
+  //       'Identification',
+  //       'Time in (Date)',
+  //       'Time out (Date)',
+  //       'Time worked (minutes)',
+  //     ],
+  //   ]);
 
-    XLSX.writeFile(workbook, `${identification}-report.xlsx`, {
-      compression: true,
-    });
-  };
+  //   XLSX.writeFile(workbook, `${identification}-report.xlsx`, {
+  //     compression: true,
+  //   });
+  // };
 
   if (!identification) return;
 
@@ -83,7 +81,7 @@ export const WorkerTracerTimeDetail = () => {
             <CardAnalytics
               icon={<DownloadForOfflineIcon />}
               title="Download data"
-              onClickButton={handleDownload}
+              onClickButton={() => null}
             />
           </>
         )}

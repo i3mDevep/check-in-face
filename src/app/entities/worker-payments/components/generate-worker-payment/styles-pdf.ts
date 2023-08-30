@@ -21,6 +21,9 @@ export const styles = StyleSheet.create({
     margin: 12,
     fontFamily: 'Oswald',
   },
+  table: {
+    margin: 5
+  },
   cellTable: {
     textAlign: 'center',
     fontSize: 8,
@@ -65,15 +68,15 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   label: {
-    fontSize: 12,
+    fontSize: 10,
     color: '#222',
-    marginTop: 5,
+    marginTop: 2,
   },
   value: {
     fontSize: 10,
     fontWeight: 'bold',
     color: '#555',
-    marginTop: 7.5,
+    marginTop: 2,
     marginLeft: 5,
   },
   row: {

@@ -4,26 +4,24 @@ import {
   PropsBase,
   withCalendarSlotBase,
 } from 'src/app/shared/components/calendar';
-import { GetListWorkerMarkTime_getListWorkerMarkTime } from 'src/graphql/queries/__generated__/GetListWorkerMarkTime';
-import { useCalculateIntervalsWithDate } from '../../hooks/useCalculateIntervalsWithDate';
+import { IntervalWorkerTime } from 'src/api-graphql-types';
 
 export const SlotDay = withCalendarSlotBase<
-  GetListWorkerMarkTime_getListWorkerMarkTime,
+IntervalWorkerTime,
   PropsBase & { hiddenDates?: boolean }
 >(
   (props) => {
-    const { intervals } = useCalculateIntervalsWithDate(props.resourceList);
-    return intervals.map((item) => (
+    return props.resourceList.map((item) => (
       <Box
-        key={item.start.toString()}
+        key={item.date.toString()}
         bgcolor="rgb(102, 157, 246)"
         padding={5}
         color="white"
         lineHeight={0}
         sx={{
           position: 'absolute',
-          top: `${item.position.top}%`,
-          height: `${item.position.height}%`,
+          top: `${item.position?.top}%`,
+          height: `${item.position?.height}%`,
           minHeight: 15,
           width: '98%',
           borderRadius: 5,
@@ -41,7 +39,7 @@ export const SlotDay = withCalendarSlotBase<
                 'HH:mm'
               )}`}{' '}
             <strong>
-              {`${item.minutesFormatter.hours}:${item.minutesFormatter.minutes} `}
+              {`${item?.minutesFormatter?.hours}:${item?.minutesFormatter?.minutes} `}
               (minutes)
             </strong>
           </Typography>

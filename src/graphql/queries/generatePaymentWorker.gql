@@ -9,10 +9,17 @@ query GenerateWorkerPayment($query: GenerateWorkerPaymentQueryInput!) {
         paymentHoursNight
       }
     }
+    totalizer {
+      hoursNightBasic
+      hoursNightHoliday
+      hoursWorkedBasic
+      hoursWorkedBasicHoliday
+      hoursWorkedExtraBasic
+      hoursWorkedExtraHoliday
+      hoursWorkedTotal
+    }
     details {
     	day
-      hoursWorkedTotal
-      hoursNight
       registers {
         start
         end
