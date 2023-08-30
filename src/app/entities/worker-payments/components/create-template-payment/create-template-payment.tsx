@@ -61,8 +61,6 @@ export const CreateTemplatePayment = () => {
     values: dtoDateForm,
   });
 
-
-
   const onSubmit: SubmitHandler<PaymentTemplate> = async (data) => {
     const { intervalNonNightSince, intervalNonNightUntil, ...restForm } = data;
     const getMinutes = (timeString: string) => {
@@ -110,12 +108,6 @@ export const CreateTemplatePayment = () => {
       <Stack marginTop={10} gap={5} direction="row">
         <FormInputText
           control={control}
-          label="Hours it must work"
-          name="hoursMinimum"
-          textFieldProps={{ required: true, type: 'number' }}
-        />
-        <FormInputText
-          control={control}
           label="Start night"
           name="intervalNonNightSince"
           textFieldProps={{ required: true, type: 'time' }}
@@ -129,7 +121,6 @@ export const CreateTemplatePayment = () => {
       </Stack>
       <Stack gap={5} direction="row">
         <FormInputCurrency
-      
           control={control}
           label="Basic hour price"
           name="baseHourDay"
@@ -137,7 +128,7 @@ export const CreateTemplatePayment = () => {
         />
         <FormInputCurrency
           control={control}
-          label="Holiday hour price"
+          label="Holiday hour surcharge"
           name="baseHourHoliday"
           textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
@@ -159,13 +150,13 @@ export const CreateTemplatePayment = () => {
       <Stack gap={5} direction="row">
         <FormInputCurrency
           control={control}
-          label="Basic night hour"
+          label="Surcharge for normal night hour"
           name="nocturnHourNormalDay"
           textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />
         <FormInputCurrency
           control={control}
-          label="Holiday night hour"
+          label="Surcharge for holiday night hour"
           name="nocturnHourHoliday"
           textFieldProps={{ variant: 'outlined', sx: { width: '50%' } }}
         />

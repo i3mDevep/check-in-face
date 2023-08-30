@@ -1,15 +1,14 @@
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { CircularProgress } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { QueryGenerateWorkerPaymentArgs } from 'src/api-graphql-types';
-import {
-  PaymentWorkerPDF,
-} from 'src/app/entities/worker-payments/components/generate-worker-payment';
+import { PaymentWorkerPDF } from 'src/app/entities/worker-payments/components/generate-worker-payment';
 import { SelectIntervalAndHoliday } from 'src/app/entities/worker-payments/components/select-interval-and-holidays/select-interval-and-holidays';
 import { useGraphqlPayments } from 'src/app/entities/worker-payments/hooks/useGraphqlPayment';
 import { useGraphqlWorker } from 'src/app/entities/worker/hooks/useGraphqlWorker';
 import { DialogBase } from 'src/app/shared/components/dialog-base';
+import { ModalSettingsPDF } from 'src/app/entities/worker-payments/components/generate-worker-payment/modal-settings-pdf';
+import dayjs from 'dayjs';
 
 export const GeneratePaymentWorker = () => {
   const { identification } = useParams();
@@ -20,7 +19,6 @@ export const GeneratePaymentWorker = () => {
     end: string;
     holidays: number[];
   }>();
-
 
   const {
     detailWorker: [getDetailWorker, result],
@@ -33,7 +31,6 @@ export const GeneratePaymentWorker = () => {
             ...dataGeneratePayment,
             scheduleWeek: result.data?.getDetailWorker.scheduleWeek ?? [],
             identification,
-            
           },
         }
       : undefined;
@@ -46,6 +43,73 @@ export const GeneratePaymentWorker = () => {
     onCompletedGenerator: () => setOpenModalHoliday(false),
   });
 
+  const [paymentsItems, setPaymentsItems] = useState<
+    {
+      label: string;
+      value: number;
+      highlighted?: boolean;
+      id: string;
+      canDelete?: boolean;
+    }[]
+  >([]);
+
+  useEffect(() => {
+    if (!data?.generateWorkerPayment) return;
+
+    const { __typename, ...restSurcharges } =
+      data?.generateWorkerPayment?.payment?.surcharges ?? {};
+
+    const paymentTotal =
+      Number(data?.generateWorkerPayment?.payment?.paymentHoursBasic) +
+      (Object.values(restSurcharges).reduce(
+        (prev, curr) => (prev ?? 0) + Number(curr),
+        0
+      ) ?? 0);
+
+    setPaymentsItems([
+      {
+        id: 'payment_total',
+        label: 'Payment Total:',
+        value: paymentTotal,
+        highlighted: true,
+      },
+      {
+        id: 'payment_hours_basic',
+        label: 'Payment Hours Basic:',
+        value: Number(data?.generateWorkerPayment?.payment?.paymentHoursBasic),
+      },
+      {
+        id: 'payment_hours_extra',
+        label: 'Payment Hours Extra:',
+        value: Number(
+          data?.generateWorkerPayment?.payment?.surcharges?.paymentHoursExtra
+        ),
+      },
+      {
+        id: 'payment_hours_extra_holiday',
+        label: 'Payment Hours Extra Holiday:',
+        value: Number(
+          data?.generateWorkerPayment?.payment?.surcharges
+            ?.paymentHoursExtraHoliday
+        ),
+      },
+      {
+        id: 'payment_hours_night',
+        label: 'Payment Hours Night:',
+        value: Number(
+          data?.generateWorkerPayment?.payment?.surcharges?.paymentHoursNight
+        ),
+      },
+      {
+        id: 'payment_hours_night_holiday',
+        label: 'Payment Hours Night Holiday:',
+        value: Number(
+          data?.generateWorkerPayment?.payment?.surcharges
+            ?.paymentHoursNightHoliday
+        ),
+      },
+    ]);
+  }, [data?.generateWorkerPayment]);
 
   useEffect(() => {
     getDetailWorker({
@@ -53,7 +117,7 @@ export const GeneratePaymentWorker = () => {
     });
   }, [getDetailWorker, identification]);
 
-  const dtoDataPdf = (data?.generateWorkerPayment) ?? {};
+  const dtoDataPdf = data?.generateWorkerPayment ?? {};
 
   if (!result.data) return <CircularProgress />;
 
@@ -65,13 +129,20 @@ export const GeneratePaymentWorker = () => {
 
   return (
     <>
-      {!openModalHoliday && (
-        <PaymentWorkerPDF
-          paymentPeriod={paymentPeriod}
-          fullName={fullName}
-          identification={id}
-          data={dtoDataPdf}
-        />
+      {!openModalHoliday && paymentsItems.length && (
+        <>
+          <ModalSettingsPDF
+            onUpdatePaymentItem={(items) => setPaymentsItems(items)}
+            paymentItems={paymentsItems}
+          />
+          <PaymentWorkerPDF
+            paymentItems={paymentsItems}
+            paymentPeriod={paymentPeriod}
+            fullName={fullName}
+            identification={id}
+            data={dtoDataPdf}
+          />
+        </>
       )}
       <DialogBase
         dialogProps={{

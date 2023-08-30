@@ -191,7 +191,7 @@ export function SelectIntervalAndHoliday({
           );
         })}
       </FormGroup>
-      <LoadingButton loading={loading} onClick={handleGenerate}>
+      <LoadingButton variant='outlined' loading={loading} onClick={handleGenerate}>
         Generate
       </LoadingButton>
     </FormControl>

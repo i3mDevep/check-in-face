@@ -6,44 +6,96 @@ export const styles = StyleSheet.create({
     paddingBottom: 65,
     paddingHorizontal: 35,
   },
-  title: {
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+  },
+  logo: {
+    width: 50,
+    height: 'auto',
+    left: 80,
+    position: 'absolute'
+  },
+  headerTitle: {
     fontSize: 24,
-    textAlign: 'center',
     fontFamily: 'Oswald',
+  },
+  employeeInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  signatureRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 50, 
+    left: 35,  
+    right: 35,  
+  },
+  signatureLabel: {
+    fontSize: 10,
+    color: '#222',
+  },
+  highlightedValue: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: 'green',
+  },
+  signatureLine: {
+    width: '30%', 
+    position: 'relative',
+    bottom: -3,
+    borderBottomWidth: 1,
+    borderColor: 'black',
+  },
+  employeeInfoItem: {
+    width: '30%',
+  },
+  label: {
+    fontSize: 10,
+    color: '#222',
+  },
+  value: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#555',
   },
   summary: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginBottom: 20,
   },
-  subtitle: {
-    fontSize: 18,
-    margin: 12,
+  summaryContent: {
+    width: '48%',
+  },
+  sectionHeader: {
+    fontSize: 16,
     fontFamily: 'Oswald',
+    marginBottom: 10,
+  },
+  paymentInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
+  },
+  hoursInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 5,
   },
   table: {
-    margin: 5
+    margin: 5,
   },
   cellTable: {
     textAlign: 'center',
     fontSize: 8,
-    padding: 4
-  },
-  text: {
-    margin: 12,
-    fontSize: 14,
-    textAlign: 'justify',
-    fontFamily: 'Times-Roman',
-  },
-  image: {
-    marginVertical: 15,
-    marginHorizontal: 100,
-  },
-  header: {
-    fontSize: 12,
-    marginBottom: 20,
-    textAlign: 'center',
-    color: 'grey',
+    padding: 4,
   },
   pageNumber: {
     position: 'absolute',
@@ -53,37 +105,5 @@ export const styles = StyleSheet.create({
     right: 0,
     textAlign: 'center',
     color: 'grey',
-  },
-  employeeInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    marginBottom: 20,
-  },
-  summaryContent: {
-    marginBottom: 20,
-  },
-  employeeInfoItem: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  label: {
-    fontSize: 10,
-    color: '#222',
-    marginTop: 2,
-  },
-  value: {
-    fontSize: 10,
-    fontWeight: 'bold',
-    color: '#555',
-    marginTop: 2,
-    marginLeft: 5,
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    borderTop: '1px solid #EEE',
-    paddingTop: 8,
-    paddingBottom: 8,
   },
 });
