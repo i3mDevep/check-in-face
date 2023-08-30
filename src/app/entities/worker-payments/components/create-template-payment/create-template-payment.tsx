@@ -110,7 +110,7 @@ export const CreateTemplatePayment = () => {
       <Stack marginTop={10} gap={5} direction="row">
         <FormInputText
           control={control}
-          label="Minimum hour"
+          label="Hours it must work"
           name="hoursMinimum"
           textFieldProps={{ required: true, type: 'number' }}
         />

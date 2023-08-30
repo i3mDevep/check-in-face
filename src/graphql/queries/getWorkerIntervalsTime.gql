@@ -1,0 +1,15 @@
+query GetWorkerIntervalsTime($query: IntervalWorkerTimeQueryInput!) {
+  getWorkerIntervalsTime(query: $query) {
+    start
+    end
+    minutes
+    minutesFormatter {
+      hours
+      minutes
+    }
+    position {
+      top
+      height
+    }
+  }
+}

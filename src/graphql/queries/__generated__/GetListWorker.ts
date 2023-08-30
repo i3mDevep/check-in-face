@@ -15,6 +15,7 @@ export interface GetListWorker_getListWorker {
   modified: string | null;
   entity: string | null;
   profilePath: string | null;
+  scheduleWeek: string[] | null;
 }
 
 export interface GetListWorker {

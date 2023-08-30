@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { QueryGenerateWorkerPaymentArgs } from 'src/api-graphql-types';
 import {
-  PaymentWorker,
   PaymentWorkerPDF,
 } from 'src/app/entities/worker-payments/components/generate-worker-payment';
 import { SelectIntervalAndHoliday } from 'src/app/entities/worker-payments/components/select-interval-and-holidays/select-interval-and-holidays';

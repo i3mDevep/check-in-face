@@ -6,5 +6,6 @@ query GetDetailWorker($identification: ID!) {
     modified
     entity
     profilePath
+    scheduleWeek
   }
 }

@@ -24,6 +24,7 @@ export interface WorkerInput {
   fullName?: string;
   identification: string;
   profilePath?: string | null;
+  scheduleWeek?: string[]
   isPatch?: boolean;
 }
 

@@ -125,7 +125,7 @@ export function MarkWorkerTime({ modeFab }: { modeFab: boolean }) {
           dialogActionComponent: (
             <Stack
               display="grid"
-              gridTemplateColumns="repeat(3, 1fr)"
+              gridTemplateColumns="repeat(2, 1fr)"
               width="min-content"
               gap={10}
               spacing={1}

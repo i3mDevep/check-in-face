@@ -25,7 +25,7 @@ export const useGraphqlWorker = (skipList?: boolean) => {
 
   const mutationCreateWorker = useMutation<CreateWorker, CreateWorkerVariables>(
     CREATE_WORKER,
-    { refetchQueries: [GET_LIST_WORKER] }
+    { refetchQueries: [GET_LIST_WORKER, GET_DETAIL_WORKER] }
   );
 
   return { resultGetWorker, mutationCreateWorker, detailWorker };

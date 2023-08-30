@@ -6,5 +6,6 @@ query GetListWorker {
     modified
     entity
     profilePath
+    scheduleWeek
   }
 }

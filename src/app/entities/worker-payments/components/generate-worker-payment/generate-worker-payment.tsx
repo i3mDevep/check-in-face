@@ -15,21 +15,7 @@ import {
 } from '@david.kucsai/react-pdf-table';
 import { styles } from './styles-pdf';
 import { useMemo } from 'react';
-
-export interface PaymentWorker {
-  day: string;
-  hoursWorked: number;
-  hoursWorkedBasic: number;
-  hoursWorkedExtra: number;
-  hoursNight: number;
-  payment: {
-    paymentHoursBasic: number;
-    surcharges: {
-      paymentHoursExtra: number;
-      paymentHoursNight: number;
-    };
-  };
-}
+import { Maybe, PaymentWorkerTime } from 'src/api-graphql-types';
 
 function formatCurrencyToCOP(value: number) {
   const options = {
@@ -50,35 +36,12 @@ export const PaymentWorkerPDF = ({
   fullName,
   identification,
 }: {
-  data: PaymentWorker[];
+  data: Maybe<PaymentWorkerTime>;
   paymentPeriod: string;
   fullName: string;
   identification: string;
 }) => {
-  const totalizer = useMemo(
-    () =>
-      data.reduce(
-        (prev, curr) => {
-          const {
-            hoursWorked,
-            payment: {
-              paymentHoursBasic,
-              surcharges: { paymentHoursExtra, paymentHoursNight },
-            },
-          } = curr;
-          return {
-            totalHours: prev.totalHours + hoursWorked,
-            totalPayment:
-              prev.totalPayment +
-              paymentHoursBasic +
-              paymentHoursExtra +
-              paymentHoursNight,
-          };
-        },
-        { totalHours: 0, totalPayment: 0 }
-      ),
-    [data]
-  );
+  const totalizer = Number(data?.payment?.paymentHoursBasic) + Number(data?.payment?.surcharges?.paymentHoursExtra) + Number(data?.payment?.surcharges?.paymentHoursNight) +  Number(data?.payment?.surcharges?.paymentHoursExtraHoliday) + Number(data?.payment?.surcharges?.paymentHoursNightHoliday)
 
   return (
     <PDFViewer style={{ height: '100%' }}>
@@ -104,22 +67,22 @@ export const PaymentWorkerPDF = ({
             </View>
 
             <View style={styles.summaryContent}>
-              <View style={styles.employeeInfoItem}>
+              {/* <View style={styles.employeeInfoItem}>
                 <Text style={styles.label}>Total hours worked:</Text>
                 <Text style={styles.value}>
                   {totalizer.totalHours.toFixed(2)}
                 </Text>
-              </View>
+              </View> */}
               <View style={styles.employeeInfoItem}>
                 <Text style={styles.label}>Total payment:</Text>
                 <Text style={styles.value}>
-                  {formatCurrencyToCOP(totalizer.totalPayment)}
+                  {formatCurrencyToCOP(totalizer)}
                 </Text>
               </View>
             </View>
           </View>
 
-          <Table data={data}>
+          {/* <Table data={data}>
             <TableHeader fontSize="8px" textAlign={'center'}>
               <TableCell weighting={0.5}>day</TableCell>
               <TableCell>hours total</TableCell>
@@ -186,7 +149,7 @@ export const PaymentWorkerPDF = ({
                 }
               />
             </TableBody>
-          </Table>
+          </Table> */}
 
           <Text
             style={styles.pageNumber}

@@ -4,6 +4,7 @@ export interface GetListWorker_getDetailWorker {
   identification: string;
   created: string | null;
   modified: string | null;
+  scheduleWeek: string[] | null
   entity: string | null;
   profilePath: string | null;
 }

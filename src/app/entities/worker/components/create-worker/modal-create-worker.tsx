@@ -22,13 +22,12 @@ export function ModalCreateWorker() {
         sx={{ maxWidth: 200, marginLeft: 'auto' }}
         color="primary"
         data-cy = 'button-create-worker'
-        aria-label="add to shopping cart"
       >
         <AddIcon />
       </IconButton>
       <DialogBase
         title="Create worker"
-        description="To create a new worker, please enter your full name here
+        description="To create a worker, please enter your full name here
       the identification must be unique."
         dialogProps={{ open, onClose: handleClose }}
       >
