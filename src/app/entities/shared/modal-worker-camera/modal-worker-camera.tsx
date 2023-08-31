@@ -1,16 +1,23 @@
 import { forwardRef } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Alert, Box, DialogActions, DialogProps, Skeleton, SxProps } from '@mui/material';
+import {
+  Alert,
+  Box,
+  DialogActions,
+  DialogProps,
+  Skeleton,
+  SxProps,
+} from '@mui/material';
 import Webcam from 'react-webcam';
 import { DialogBase } from 'src/app/shared/components/dialog-base';
-
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 export interface ModalWorkerCameraProps {
   open: boolean;
   onClose: () => void;
   capturePicture: () => void;
   loading?: boolean;
   disabledCapture?: boolean;
-  dialogProps?: Partial<DialogProps>
+  dialogProps?: Partial<DialogProps>;
   slots?: { dialogActionComponent?: JSX.Element };
   loadingButtonSx?: SxProps;
   hiddenAlert?: boolean;
@@ -27,7 +34,7 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
       slots,
       loadingButtonSx,
       hiddenAlert,
-      dialogProps
+      dialogProps,
     },
     webcamRef
   ) => {
@@ -51,11 +58,12 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
                 ...loadingButtonSx,
               }}
               disabled={disabledCapture}
-              variant="contained"
+              variant="outlined"
               onClick={capturePicture}
               loading={!!loading}
             >
-              Capture
+              <CameraAltIcon />
+              capture
             </LoadingButton>
           </DialogActions>
         }
@@ -63,25 +71,24 @@ export const ModalWorkerCamera = forwardRef<Webcam, ModalWorkerCameraProps>(
         {!hiddenAlert && (
           <Alert severity="info">try to be only you in the image</Alert>
         )}
-        <Box position='relative'>
-        <Webcam
-          audio={false}
-          mirrored={true}
-          height={300}
-          width={300}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          videoConstraints={videoConstraints}
-          style={{ objectFit: 'cover' }}
-        />
-        <Skeleton
-          sx={{ position: 'absolute', top: 0 }}
-          variant="rectangular"
-          width={300}
-          height={300}
-        />
+        <Box position="relative" display="flex" justifyContent="center">
+          <Webcam
+            audio={false}
+            mirrored={true}
+            height={300}
+            width={300}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            videoConstraints={videoConstraints}
+            style={{ objectFit: 'cover' }}
+          />
+          <Skeleton
+            sx={{ position: 'absolute', top: 0 }}
+            variant="rectangular"
+            width={300}
+            height={300}
+          />
         </Box>
-
       </DialogBase>
     );
   }

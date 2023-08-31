@@ -14,7 +14,7 @@ export function WorkerListSelected({
   onClickItem,
 }: {
   onClickItem: (id: string) => void;
-  title?: string
+  title?: string;
 }) {
   const {
     resultGetWorker: { data, loading },
@@ -33,6 +33,18 @@ export function WorkerListSelected({
         maxWidth: 500,
         bgcolor: 'background.paper',
         margin: 'auto',
+        maxHeight: '80vh',
+        overflow: 'auto',
+        '&::-webkit-scrollbar': {
+          width: '0.3em'
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(0,0,0,.1)',
+        }
       }}
     >
       {data?.getListWorker?.map(({ identification, profilePath, fullName }) => {

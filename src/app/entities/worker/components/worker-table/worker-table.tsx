@@ -106,23 +106,28 @@ const columns: GridColDef<GetListWorker_getListWorker>[] = [
   },
   {
     field: 'scheduleWeek',
-    headerName: 'Schedule Week',
-    width: 300,
+    headerName: 'Hours by week',
     editable: false,
+    width: 120,
     cellClassName: 'cell-chip-schedule',
     renderCell: (params) => {
       return (
-        <Stack display='grid' gap={3} height='100%' gridTemplateColumns='1FR 1FR'>
-          {params.row.scheduleWeek?.map((day) => (
-            <Chip size='small' key={day} label={day} />
-          ))}
-        </Stack>
+        <Chip
+          size="small"
+          sx={{ margin: 'auto' }}
+          label={params.row.scheduleWeek?.reduce((sum, schedule) => {
+            const [_, hoursText] = schedule.split(' ');
+            return sum + Number(hoursText);
+          }, 0) ?? 0}
+        />
       );
     },
   },
   {
     field: 'created',
     headerName: 'Created',
+    align: 'center',
+    headerAlign: 'center',
     width: 200,
     editable: false,
     valueFormatter: (params: GridValueFormatterParams<string>) => {
@@ -132,7 +137,8 @@ const columns: GridColDef<GetListWorker_getListWorker>[] = [
   {
     field: 'update',
     type: 'actions',
-    width: 200,
+    align: 'center',
+    flex: 1,
     headerName: 'Actions',
     getActions: (params) => {
       return [<AttachmentImages {...params} />, <UpdateWorker {...params} />];
