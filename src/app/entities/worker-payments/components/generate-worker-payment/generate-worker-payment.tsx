@@ -71,19 +71,19 @@ export const PaymentWorkerPDF = React.memo(
           <Page style={styles.body}>
             <View style={styles.headerContainer}>
               <Image style={styles.logo} src={logoMor} />
-              <Text style={styles.headerTitle}>Payment - Cyrus Industries</Text>
+              <Text style={styles.headerTitle}>Pago Industrias Ciro</Text>
             </View>
             <View style={styles.employeeInfo}>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Name:</Text>
+                <Text style={styles.label}>Nombre:</Text>
                 <Text style={styles.value}>{fullName}</Text>
               </View>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Identification:</Text>
+                <Text style={styles.label}>Identificación:</Text>
                 <Text style={styles.value}>{identification}</Text>
               </View>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Payment period:</Text>
+                <Text style={styles.label}>Payment Periodo:</Text>
                 <Text style={styles.value}>{paymentPeriod}</Text>
               </View>
             </View>
@@ -106,45 +106,45 @@ export const PaymentWorkerPDF = React.memo(
                 ))}
               </View>
               <View style={styles.summaryContent}>
-                <Text style={styles.sectionHeader}>Hours details</Text>
+                <Text style={styles.sectionHeader}>Detalle de horas</Text>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Hours Worked Total:</Text>
+                  <Text style={styles.label}>Horas total trabajadas:</Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedTotal)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Hours Worked Basic:</Text>
+                  <Text style={styles.label}>Horas básicas trabajadas:</Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedBasic)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Hours Worked Basic Holiday:</Text>
+                  <Text style={styles.label}>Horas básicas trabajadas festivo:</Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedBasicHoliday)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Hours Worked Extra Basic:</Text>
+                  <Text style={styles.label}>Horas extras básicas trabajadas:</Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedExtraBasic)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Hours Worked Extra Holiday:</Text>
+                  <Text style={styles.label}>Horas extras festivas trabajadas:</Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedExtraHoliday)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Hours Night Basic:</Text>
+                  <Text style={styles.label}>Horas nocturnas básicas:</Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursNightBasic)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Hours Night Holiday:</Text>
+                  <Text style={styles.label}>Horas nocturnas festivas:</Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursNightHoliday)}
                   </Text>
@@ -193,9 +193,9 @@ export const PaymentWorkerPDF = React.memo(
             </View>
 
             <View style={styles.signatureRow}>
-              <Text style={styles.signatureLabel}>Employee Signature:</Text>
+              <Text style={styles.signatureLabel}>Firma empleado:</Text>
               <View style={styles.signatureLine} />
-              <Text style={styles.signatureLabel}>Employer Signature:</Text>
+              <Text style={styles.signatureLabel}>Firma empleador:</Text>
               <View style={styles.signatureLine} />
             </View>
             <Text
