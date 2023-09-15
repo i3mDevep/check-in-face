@@ -83,13 +83,13 @@ export const PaymentWorkerPDF = React.memo(
                 <Text style={styles.value}>{identification}</Text>
               </View>
               <View style={styles.employeeInfoItem}>
-                <Text style={styles.label}>Payment Periodo:</Text>
+                <Text style={styles.label}>Periodo de pago:</Text>
                 <Text style={styles.value}>{paymentPeriod}</Text>
               </View>
             </View>
             <View style={styles.summary}>
               <View style={styles.summaryContent}>
-                <Text style={styles.sectionHeader}>Payment details</Text>
+                <Text style={styles.sectionHeader}>Detalle de pago</Text>
                 {paymentItems.map((item) => (
                   <View style={styles.paymentInfo} key={item.label}>
                     <Text style={styles.label}>{item.label}</Text>
