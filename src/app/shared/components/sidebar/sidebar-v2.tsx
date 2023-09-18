@@ -1,6 +1,11 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { styled, ThemeProvider, createTheme } from '@mui/material/styles';
+import {
+  styled,
+  ThemeProvider,
+  createTheme,
+  useTheme,
+} from '@mui/material/styles';
 import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -10,14 +15,14 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import People from '@mui/icons-material/People';
 import Dns from '@mui/icons-material/Dns';
-import { Avatar, Drawer } from '@mui/material';
+import { Avatar, Drawer, useMediaQuery } from '@mui/material';
 import { Link } from 'react-router-dom';
 import PaidIcon from '@mui/icons-material/Paid';
 
 const data = [
   { icon: <People />, label: 'Worker', path: '/app/worker' },
-  { icon: <Dns />, label: 'Tracer time', path: '/app/tracer-time'  },
-  { icon: <PaidIcon />, label: 'Payment', path: '/app/payment'}
+  { icon: <Dns />, label: 'Tracer time', path: '/app/tracer-time' },
+  { icon: <PaidIcon />, label: 'Payment', path: '/app/payment' },
 ];
 
 const FireNav = styled(List)<{ component?: React.ElementType }>({
@@ -36,6 +41,9 @@ const FireNav = styled(List)<{ component?: React.ElementType }>({
 
 export function SidebarV2() {
   const [open, setOpen] = React.useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <ThemeProvider
       theme={createTheme({
@@ -62,15 +70,20 @@ export function SidebarV2() {
           '& .MuiDrawer-paper': {
             position: 'static',
             boxSizing: 'border-box',
-            borderRadius: 3
+            borderRadius: 3,
           },
         }}
       >
-        <Paper elevation={0} sx={{ maxWidth: 256 }}>
+        <Paper
+          elevation={0}
+          sx={{ maxWidth: 256, ...(isMobile && { width: 52 }) }}
+        >
           <FireNav sx={{ position: 'relative' }} component="nav" disablePadding>
-            <ListItemButton disableTouchRipple component="a" href="/">
-              <Avatar src='https://cdn-icons-png.flaticon.com/512/5556/5556512.png' />
-              <ListItemIcon sx={{ fontSize: 14, left: 50, bottom: 0, position: 'absolute' }}>
+            <ListItemButton sx={{ '&.MuiListItemButton-root': { paddingLeft: 1.5 } }} disableTouchRipple component="a" href="/">
+              <Avatar src="https://cdn-icons-png.flaticon.com/512/5556/5556512.png" />
+              <ListItemIcon
+                sx={{ fontSize: 14, left: 50, bottom: 0, position: 'absolute' }}
+              >
                 <span aria-label="icon-app" role="img">
                   🔥
                 </span>
@@ -103,23 +116,25 @@ export function SidebarV2() {
                   '&:hover, &:focus': { '& svg': { opacity: open ? 1 : 0 } },
                 }}
               >
-                <ListItemText
-                  primary="Services"
-                  primaryTypographyProps={{
-                    fontSize: 15,
-                    fontWeight: 'medium',
-                    lineHeight: '20px',
-                    mb: '2px',
-                  }}
-                  secondary="Worker list, create new worker and mark option"
-                  secondaryTypographyProps={{
-                    noWrap: true,
-                    fontSize: 12,
-                    lineHeight: '16px',
-                    color: open ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.5)',
-                  }}
-                  sx={{ my: 0 }}
-                />
+                {!isMobile && (
+                  <ListItemText
+                    primary="Services"
+                    primaryTypographyProps={{
+                      fontSize: 15,
+                      fontWeight: 'medium',
+                      lineHeight: '20px',
+                      mb: '2px',
+                    }}
+                    secondary="Worker list, create new worker and mark option"
+                    secondaryTypographyProps={{
+                      noWrap: true,
+                      fontSize: 12,
+                      lineHeight: '16px',
+                      color: open ? 'rgba(0,0,0,0)' : 'rgba(255,255,255,0.5)',
+                    }}
+                    sx={{ my: 0 }}
+                  />
+                )}
                 <KeyboardArrowDown
                   sx={{
                     mr: -1,
