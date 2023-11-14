@@ -69,25 +69,25 @@ export const GeneratePaymentWorker = () => {
     setPaymentsItems([
       {
         id: 'payment_total',
-        label: 'Payment Total:',
+        label: 'Pago Total:',
         value: paymentTotal,
         highlighted: true,
       },
       {
         id: 'payment_hours_basic',
-        label: 'Payment Hours Basic:',
+        label: 'Pago horas basicas:',
         value: Number(data?.generateWorkerPayment?.payment?.paymentHoursBasic),
       },
       {
         id: 'payment_hours_extra',
-        label: 'Payment Hours Extra:',
+        label: 'Pago horas extra:',
         value: Number(
           data?.generateWorkerPayment?.payment?.surcharges?.paymentHoursExtra
         ),
       },
       {
         id: 'payment_hours_extra_holiday',
-        label: 'Payment Hours Extra Holiday:',
+        label: 'Pago horas extra festivo:',
         value: Number(
           data?.generateWorkerPayment?.payment?.surcharges
             ?.paymentHoursExtraHoliday
@@ -95,14 +95,14 @@ export const GeneratePaymentWorker = () => {
       },
       {
         id: 'payment_hours_night',
-        label: 'Payment Hours Night:',
+        label: 'Pago horas nocturnas:',
         value: Number(
           data?.generateWorkerPayment?.payment?.surcharges?.paymentHoursNight
         ),
       },
       {
         id: 'payment_hours_night_holiday',
-        label: 'Payment Hours Night Holiday:',
+        label: 'Pago horas nocturnas festivo:',
         value: Number(
           data?.generateWorkerPayment?.payment?.surcharges
             ?.paymentHoursNightHoliday

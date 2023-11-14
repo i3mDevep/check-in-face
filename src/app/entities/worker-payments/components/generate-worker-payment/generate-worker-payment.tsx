@@ -154,10 +154,10 @@ export const PaymentWorkerPDF = React.memo(
             <View style={styles.table}>
               <Table data={dtoJoinRegisters}>
                 <TableHeader fontSize="8px" textAlign={'center'}>
-                  <TableCell weighting={0.5}>Day</TableCell>
-                  <TableCell>Start</TableCell>
-                  <TableCell>End</TableCell>
-                  <TableCell>Difference (Hours)</TableCell>
+                  <TableCell weighting={0.5}>Dia</TableCell>
+                  <TableCell>Inicio</TableCell>
+                  <TableCell>Final</TableCell>
+                  <TableCell>Total (Horas)</TableCell>
                 </TableHeader>
                 <TableBody>
                   <DataTableCell
