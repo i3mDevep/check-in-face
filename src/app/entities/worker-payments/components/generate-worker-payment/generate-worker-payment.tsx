@@ -22,8 +22,12 @@ import {
 
 import { styles } from './styles-pdf';
 import dayjs from 'dayjs';
+import es from 'dayjs/locale/es';
+
 import logoMor from '../../../../../assets/logo-mor.png';
 import React, { useMemo } from 'react';
+
+dayjs.locale(es);
 
 function formatCurrencyToCOP(value: number) {
   const options = {
