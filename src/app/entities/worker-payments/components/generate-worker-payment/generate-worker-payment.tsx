@@ -25,9 +25,7 @@ import dayjs from 'dayjs';
 import es from 'dayjs/locale/es';
 
 import logoMor from '../../../../../assets/logo-mor.png';
-import React, { useMemo } from 'react';
-
-dayjs.locale(es);
+import React, { useLayoutEffect, useMemo } from 'react';
 
 function formatCurrencyToCOP(value: number) {
   const options = {
@@ -61,6 +59,11 @@ export const PaymentWorkerPDF = React.memo(
       highlighted?: boolean;
     }>;
   }) => {
+
+    useLayoutEffect(() => {
+      dayjs.locale(es);
+    }, []);
+
     const dtoJoinRegisters = useMemo(
       () =>
         data?.details?.flatMap((detail) =>
@@ -124,19 +127,25 @@ export const PaymentWorkerPDF = React.memo(
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Horas básicas trabajadas festivo:</Text>
+                  <Text style={styles.label}>
+                    Horas básicas trabajadas festivo:
+                  </Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedBasicHoliday)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Horas extras básicas trabajadas:</Text>
+                  <Text style={styles.label}>
+                    Horas extras básicas trabajadas:
+                  </Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedExtraBasic)}
                   </Text>
                 </View>
                 <View style={styles.hoursInfo}>
-                  <Text style={styles.label}>Horas extras festivas trabajadas:</Text>
+                  <Text style={styles.label}>
+                    Horas extras festivas trabajadas:
+                  </Text>
                   <Text style={styles.value}>
                     {getShortValue(data?.totalizer?.hoursWorkedExtraHoliday)}
                   </Text>
