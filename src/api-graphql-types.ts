@@ -99,6 +99,7 @@ export type MutationPutWorkerArgs = {
 
 export type PaymentWorkerSurcharges = {
   __typename?: 'PaymentWorkerSurcharges';
+  paymentHoursBasicHoliday?: Maybe<Scalars['Float']['output']>;
   paymentHoursExtra?: Maybe<Scalars['Float']['output']>;
   paymentHoursExtraHoliday?: Maybe<Scalars['Float']['output']>;
   paymentHoursNight?: Maybe<Scalars['Float']['output']>;
@@ -474,6 +475,7 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 };
 
 export type PaymentWorkerSurchargesResolvers<ContextType = any, ParentType extends ResolversParentTypes['PaymentWorkerSurcharges'] = ResolversParentTypes['PaymentWorkerSurcharges']> = {
+  paymentHoursBasicHoliday?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   paymentHoursExtra?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   paymentHoursExtraHoliday?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   paymentHoursNight?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;

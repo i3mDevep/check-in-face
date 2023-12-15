@@ -74,7 +74,7 @@ export const FormCreateWorker = ({
         !scheduleWeek.some((schedule) =>
           schedule.includes(dayjs(day).format('dddd'))
         )
-          ? Array.from(Array(10)).map(
+          ? Array.from(Array(15)).map(
               (_, i) => `${dayjs(day).format('dddd')} ${i + 1} hours`
             )
           : [

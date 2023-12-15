@@ -79,6 +79,11 @@ export const GeneratePaymentWorker = () => {
         value: Number(data?.generateWorkerPayment?.payment?.paymentHoursBasic),
       },
       {
+        id: 'payment_surcharges_holiday',
+        label: 'Pago recargo festivo:',
+        value: Number(data?.generateWorkerPayment?.payment?.surcharges?.paymentHoursBasicHoliday),
+      },
+      {
         id: 'payment_hours_extra',
         label: 'Pago horas extra:',
         value: Number(

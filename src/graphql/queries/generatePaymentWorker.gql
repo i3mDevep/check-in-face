@@ -3,6 +3,7 @@ query GenerateWorkerPayment($query: GenerateWorkerPaymentQueryInput!) {
     payment {
       paymentHoursBasic
       surcharges {
+        paymentHoursBasicHoliday
         paymentHoursNightHoliday
         paymentHoursExtraHoliday
         paymentHoursExtra
