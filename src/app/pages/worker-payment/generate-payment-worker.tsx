@@ -66,7 +66,7 @@ export const GeneratePaymentWorker = () => {
         0
       ) ?? 0);
 
-    setPaymentsItems([
+   const defaultPayments =  [
       {
         id: 'payment_total',
         label: 'Pago Total:',
@@ -113,7 +113,25 @@ export const GeneratePaymentWorker = () => {
             ?.paymentHoursNightHoliday
         ),
       },
-    ]);
+    ]
+    try {
+      const memorizedPayments = JSON.parse(localStorage.getItem('payments-data') ?? '[]')
+      memorizedPayments.forEach((memorized: any) => {
+        if(defaultPayments.some((dp) => dp.id === memorized.id)) return
+        defaultPayments.push(memorized)
+      });
+
+      const totalPayment = Object.values(defaultPayments).reduce(
+        (prev, item) =>
+          item.id === 'payment_total' ? prev : prev + Number(item.value),
+        0
+      )
+      defaultPayments[0] = {...defaultPayments[0], value: totalPayment }
+    // eslint-disable-next-line no-empty
+    } catch (error) {
+      
+    }
+    setPaymentsItems(defaultPayments);
   }, [data?.generateWorkerPayment]);
 
   useEffect(() => {
@@ -137,7 +155,10 @@ export const GeneratePaymentWorker = () => {
       {!openModalHoliday && paymentsItems.length && (
         <>
           <ModalSettingsPDF
-            onUpdatePaymentItem={(items) => setPaymentsItems(items)}
+            onUpdatePaymentItem={(items) => {
+              localStorage.setItem('payments-data', JSON.stringify(items))
+              setPaymentsItems(items)
+            }}
             paymentItems={paymentsItems}
           />
           <PaymentWorkerPDF
