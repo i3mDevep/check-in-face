@@ -23,6 +23,7 @@ import {
 import { styles } from './styles-pdf';
 import dayjs from 'dayjs';
 import es from 'dayjs/locale/es';
+import en from 'dayjs/locale/en';
 
 import logoMor from '../../../../../assets/logo-mor.png';
 import React, { useLayoutEffect, useMemo } from 'react';
@@ -62,6 +63,9 @@ export const PaymentWorkerPDF = React.memo(
 
     useLayoutEffect(() => {
       dayjs.locale(es);
+      return () => {
+        dayjs.locale(en);
+      };
     }, []);
 
     const dtoJoinRegisters = useMemo(
